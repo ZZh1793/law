@@ -1,0 +1,2574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>守护每一份劳动 | 劳动者权益法律咨询助手</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 260px;
+            background: #f5f5f5;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #e0e0e0;
+            position: relative;
+            transition: width 0.3s ease;
+            flex-shrink: 0;
+        }
+        .sidebar.collapsed {
+            width: 60px;
+        }
+        .sidebar:hover.collapsed {
+            width: 260px;
+        }
+        .resize-handle {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            background: transparent;
+            cursor: col-resize;
+            z-index: 10;
+        }
+        .resize-handle:hover {
+            background: #3a5a7a;
+        }
+        .sidebar.collapsed .resize-handle {
+            display: none;
+        }
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            gap: 8px;
+        }
+        .collapse-btn {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+        }
+        .collapse-btn:hover {
+            background: #e0e0e0;
+            color: #3a5a7a;
+        }
+        .new-chat-btn {
+            background: #3a5a7a;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.3s;
+            width: calc(100% - 30px);
+            flex-shrink: 0;
+        }
+        .new-chat-btn:hover {
+            background: #2d4a5f;
+        }
+        .history-title {
+            font-size: 14px;
+            color: #666;
+            font-weight: bold;
+            padding: 10px 15px;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .history-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 10px;
+        }
+        .sidebar.collapsed .history-title {
+            display: none;
+        }
+        .sidebar.collapsed .new-chat-btn {
+            display: none;
+        }
+        .sidebar.collapsed .clear-history-btn {
+            display: none;
+        }
+        .sidebar.collapsed .history-list {
+            padding: 10px;
+        }
+        .sidebar.collapsed .history-item {
+            padding: 8px;
+            justify-content: center;
+            font-size: 20px;
+        }
+        .sidebar.collapsed .history-item-title {
+            display: none;
+        }
+        .sidebar.collapsed .delete-btn {
+            display: none;
+        }
+        .collapsed-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+        }
+        .collapsed-icon-item {
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .collapsed-icon-item:hover {
+            background: #e0e0e0;
+            color: #3a5a7a;
+        }
+        .sidebar:not(.collapsed) .collapsed-icon {
+            display: none;
+        }
+        .expand-icon-btn {
+            font-size: 24px;
+            color: #666;
+        }
+        .history-item {
+            background: white;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+            border: 1px solid #e0e0e0;
+        }
+        .history-item:hover {
+            background: #f0f0f0;
+            border-color: #b0b0b0;
+        }
+        .history-item.active {
+            background: #3a5a7a;
+            color: white;
+            border-color: #3a5a7a;
+        }
+        .history-item-title {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-right: 120px;
+        }
+        .delete-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .history-item:hover .delete-btn,
+        .history-item:hover .rename-btn,
+        .history-item:hover .pin-btn {
+            display: flex;
+        }
+        .history-item.pinned {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border-color: #4caf50;
+        }
+        .history-item.pinned:hover {
+            border-color: #388e3c;
+        }
+        .history-item.pinned .pin-btn {
+            background: #4caf50;
+        }
+        .rename-btn {
+            position: absolute;
+            right: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .rename-btn:hover {
+            background: #2980b9;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .pin-btn {
+            position: absolute;
+            right: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #808080;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .pin-btn:hover {
+            background: #606060;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .pin-btn.pinned {
+            background: #4caf50;
+        }
+        .delete-btn:hover {
+            background: #c0392b;
+        }
+        .clear-history-btn {
+            background: #b0b0b0;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            margin: 10px 15px;
+            transition: background 0.3s;
+            align-self: flex-start;
+        }
+        .clear-history-btn:hover {
+            background: #909090;
+        }
+        .chat-container {
+            flex: 1;
+            height: 100vh;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            min-width: 0;
+        }
+        .chat-header {
+            background: #3a5a7a;
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            max-width: 85%;
+            padding: 18px 22px;
+            border-radius: 18px;
+            font-size: 16px;
+            line-height: 1.8;
+            word-wrap: break-word;
+            word-break: break-word;
+            white-space: pre-wrap;
+        }
+        .user-message {
+            background: #3a5a7a;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        .bot-message {
+            background: #e9ecef;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        .chat-input-area {
+            display: flex;
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            gap: 12px;
+            align-items: center;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 18px;
+        }
+        .icon-btn {
+            background: white;
+            border: none;
+            padding: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .icon-btn:hover {
+            background: #f0f0f0;
+            color: #3a5a7a;
+        }
+        .send-btn {
+            background: #3a5a7a;
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .send-btn:hover {
+            background: #2d4a5f;
+        }
+        .typing {
+            color: #999;
+            font-size: 16px;
+            padding: 8px 20px;
+        }
+        .message-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 8px;
+        }
+        .message-audio {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+        .message-file {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255,255,255,0.2);
+            padding: 12px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            max-width: 400px;
+        }
+        .message-file:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        .file-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-bottom: 4px;
+        }
+        .file-size {
+            font-size: 12px;
+            color: rgba(255,255,255,0.7);
+        }
+        .file-uploading {
+            color: #ffd700;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .voice-recording {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+        .voice-recording.active {
+            display: block;
+        }
+        .recording-icon {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+        .recording-status {
+            font-size: 20px;
+            font-weight: bold;
+            color: #3a5a7a;
+            margin: 10px 0;
+        }
+        .recording-time {
+            font-size: 16px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+        }
+        .rename-input {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #3a5a7a;
+            border-radius: 5px;
+            font-size: 14px;
+            outline: none;
+        }
+        .rename-input:focus {
+            border-color: #4caf50;
+        }
+        .context-menu {
+            position: fixed;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            z-index: 10000;
+            display: none;
+            min-width: 150px;
+        }
+        .context-menu.active {
+            display: block;
+        }
+        .context-menu-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #333;
+            transition: background 0.2s;
+        }
+        .context-menu-item:hover {
+            background: #f0f0f0;
+        }
+        .context-menu-item:first-child {
+            border-radius: 8px 8px 0 0;
+        }
+        .context-menu-item:last-child {
+            border-radius: 0 0 8px 8px;
+        }
+        .context-menu-item.danger {
+            color: #dc3545;
+        }
+        .context-menu-item.danger:hover {
+            background: #fee;
+        }
+        
+        /* 登录注册界面 */
+        .auth-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+        
+        .auth-overlay.hidden {
+            display: none;
+        }
+        
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .auth-title {
+            text-align: center;
+            color: #1e3a5f;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .auth-input {
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .auth-input:focus {
+            outline: none;
+            border-color: #3a5a7a;
+        }
+        
+        .auth-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .auth-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(58, 90, 122, 0.4);
+        }
+        
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .auth-switch a {
+            color: #3a5a7a;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .auth-error {
+            color: #dc3545;
+            font-size: 14px;
+            text-align: center;
+            display: none;
+        }
+        
+        .auth-user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+        }
+        
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- 登录注册界面 -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-container">
+            <h2 class="auth-title" id="authTitle">用户登录</h2>
+            <form class="auth-form" id="authForm" onsubmit="return false;">
+                <input type="text" class="auth-input" id="authUsername" placeholder="用户名" required>
+                <input type="password" class="auth-input" id="authPassword" placeholder="密码" required>
+                <input type="email" class="auth-input" id="authEmail" placeholder="邮箱（选填）" style="display: none;">
+                <button type="submit" class="auth-btn" id="authBtn">登录</button>
+            </form>
+            <p class="auth-error" id="authError"></p>
+            <p class="auth-switch">
+                <span id="authSwitchText">还没有账号？</span>
+                <a id="authSwitchLink">立即注册</a>
+            </p>
+        </div>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <div class="resize-handle" id="resizeHandle"></div>
+        <div class="sidebar-header">
+            <button class="collapse-btn" id="collapseBtn">«</button>
+            <div class="auth-user-info" id="userInfo" style="display: none;">
+                <span id="usernameDisplay">用户</span>
+                <button class="logout-btn" id="logoutBtn">退出</button>
+            </div>
+        </div>
+        <button class="new-chat-btn" id="newChatBtn">+ 新对话</button>
+        <div class="history-title">历史记录</div>
+        <div class="history-list" id="historyList"></div>
+        <button class="clear-history-btn" id="clearHistoryBtn">🗑️ 清空所有历史</button>
+        <div class="collapsed-icon">
+            <div class="collapsed-icon-item" id="collapsedNewChatBtn" title="新对话">💬</div>
+            <div class="collapsed-icon-item" id="collapsedHistoryBtn" title="历史记录">📋</div>
+        </div>
+    </div>
+    <div class="chat-container">
+        <div class="chat-header">
+            ⚖️ 守护每一份劳动 | 劳动者权益法律咨询助手
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                ⚖️ 你好！我是你的劳动权益法律咨询助手。<br><br>
+                我专门帮助劳动者解决：<br>
+                💰 兼职/实习工资被拖欠<br>
+                📝 没签合同被无故辞退<br>
+                ⏰ 加班不给加班费<br>
+                🎓 试用期被"坑"<br>
+                以及其他劳务纠纷问题。<br><br>
+                ✅ 我的回答基于真实法律条款检索，不会瞎编法条。<br><br>
+                你可以先在我这里完成一次初步咨询，<br>
+                最后我会为你生成符合规范格式的：<br>
+                📄 《民事起诉状草稿》<br>
+                📄 《劳动仲裁申请书》<br>
+                📄 《催款函》<br><br>
+                📌 请先描述你的情况吧～<br><br>
+                比如：我在学校旁边的奶茶店兼职，干了15天，老板说试用期没工资，没签合同，我该怎么办？
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <button class="icon-btn" id="voiceBtn" title="按住说话">💬</button>
+            <input type="text" class="chat-input" id="messageInput" placeholder="输入你的问题...">
+            <button class="icon-btn" id="uploadFileBtn" title="上传文件（图片、PDF、Word、文本）">📎</button>
+            <input type="file" id="fileInput" accept="image/*,.pdf,.doc,.docx,.txt" style="display: none;">
+            <button class="send-btn" id="sendBtn">发送</button>
+        </div>
+        <div class="voice-recording" id="voiceRecording">
+            <div class="recording-icon">🎙️</div>
+            <div class="recording-status" id="recordingStatus">正在录音...</div>
+            <div class="recording-time" id="recordingTime">0:00</div>
+            <div style="color: #999;">松手结束录音</div>
+        </div>
+    </div>
+
+    <!-- 右键菜单 -->
+    <div class="context-menu" id="contextMenu">
+        <div class="context-menu-item" id="menuRename">✏️ 重命名</div>
+        <div class="context-menu-item" id="menuPin">📌 置顶</div>
+        <div class="context-menu-item danger" id="menuDelete">🗑️ 删除</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const voiceBtn = document.getElementById('voiceBtn');
+        const uploadFileBtn = document.getElementById('uploadFileBtn');
+        const fileInput = document.getElementById('fileInput');
+        const voiceRecording = document.getElementById('voiceRecording');
+        const newChatBtn = document.getElementById('newChatBtn');
+        const historyList = document.getElementById('historyList');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+        const sidebar = document.getElementById('sidebar');
+        const collapseBtn = document.getElementById('collapseBtn');
+        const resizeHandle = document.getElementById('resizeHandle');
+        const collapsedNewChatBtn = document.getElementById('collapsedNewChatBtn');
+        const collapsedHistoryBtn = document.getElementById('collapsedHistoryBtn');
+        const contextMenu = document.getElementById('contextMenu');
+        const menuRename = document.getElementById('menuRename');
+        const menuPin = document.getElementById('menuPin');
+        const menuDelete = document.getElementById('menuDelete');
+        const recordingStatus = document.getElementById('recordingStatus');
+        const recordingTime = document.getElementById('recordingTime');
+
+        // 认证相关变量
+        let currentUserId = null;
+        let currentConversationId = null;
+        let isRegisterMode = false;
+        let conversations = {}; // {id: {title, messages, pinned}}
+
+        const authOverlay = document.getElementById('authOverlay');
+        const authTitle = document.getElementById('authTitle');
+        const authForm = document.getElementById('authForm');
+        const authUsername = document.getElementById('authUsername');
+        const authPassword = document.getElementById('authPassword');
+        const authEmail = document.getElementById('authEmail');
+        const authBtn = document.getElementById('authBtn');
+        const authError = document.getElementById('authError');
+        const authSwitchText = document.getElementById('authSwitchText');
+        const authSwitchLink = document.getElementById('authSwitchLink');
+        const userInfo = document.getElementById('userInfo');
+        const usernameDisplay = document.getElementById('usernameDisplay');
+        const logoutBtn = document.getElementById('logoutBtn');
+
+        let isRecording = false;
+        let currentChatId = null;
+        let chats = {};
+        let currentMessages = [];
+        let contextMenuChatId = null;
+        let recognition = null; // 语音识别对象
+        let recordingStartTime = null; // 录音开始时间
+        let recordingTimer = null; // 录音计时器
+        const MAX_RECORDING_TIME = 30; // 最长录音时间（秒）
+
+        // ========== 认证相关函数 ==========
+        
+        // 检查是否已登录
+        function checkAuth() {
+            const savedUserId = localStorage.getItem('law_user_id');
+            const savedUsername = localStorage.getItem('law_username');
+            
+            if (savedUserId && savedUsername) {
+                currentUserId = parseInt(savedUserId);
+                showMainInterface(savedUsername);
+            } else {
+                authOverlay.classList.remove('hidden');
+            }
+        }
+        
+        // 显示主界面
+        function showMainInterface(username) {
+            authOverlay.classList.add('hidden');
+            userInfo.style.display = 'flex';
+            usernameDisplay.textContent = username;
+            loadConversations();
+        }
+        
+        // 切换登录/注册模式
+        function toggleAuthMode() {
+            isRegisterMode = !isRegisterMode;
+            if (isRegisterMode) {
+                authTitle.textContent = '用户注册';
+                authBtn.textContent = '注册';
+                authSwitchText.textContent = '已有账号？';
+                authSwitchLink.textContent = '立即登录';
+                authEmail.style.display = 'block';
+            } else {
+                authTitle.textContent = '用户登录';
+                authBtn.textContent = '登录';
+                authSwitchText.textContent = '还没有账号？';
+                authSwitchLink.textContent = '立即注册';
+                authEmail.style.display = 'none';
+            }
+            authError.style.display = 'none';
+        }
+        
+        // 显示错误
+        function showAuthError(msg) {
+            authError.textContent = msg;
+            authError.style.display = 'block';
+        }
+        
+        // 登录
+        async function login() {
+            const username = authUsername.value.trim();
+            const password = authPassword.value;
+            
+            if (!username || !password) {
+                showAuthError('请输入用户名和密码');
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/login', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, password})
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('law_user_id', data.user.id);
+                    localStorage.setItem('law_username', data.user.username);
+                    currentUserId = data.user.id;
+                    currentConversationId = data.conversation_id;
+                    showMainInterface(data.user.username);
+                } else {
+                    showAuthError(data.detail || '登录失败');
+                }
+            } catch (error) {
+                console.error('登录错误:', error);
+                showAuthError('网络错误，请稍后重试');
+            }
+        }
+        
+        // 注册
+        async function register() {
+            const username = authUsername.value.trim();
+            const password = authPassword.value;
+            const email = authEmail.value.trim();
+            
+            if (!username || !password) {
+                showAuthError('请输入用户名和密码');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showAuthError('密码至少6位');
+                return;
+            }
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/register', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, password, email})
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    localStorage.setItem('law_user_id', data.user.id);
+                    localStorage.setItem('law_username', data.user.username);
+                    currentUserId = data.user.id;
+                    currentConversationId = data.user.conversation_id;
+                    showMainInterface(data.user.username);
+                } else {
+                    showAuthError(data.detail || '注册失败');
+                }
+            } catch (error) {
+                console.error('注册错误:', error);
+                showAuthError('网络错误，请稍后重试');
+            }
+        }
+        
+        // 登出
+        function logout() {
+            localStorage.removeItem('law_user_id');
+            localStorage.removeItem('law_username');
+            currentUserId = null;
+            currentConversationId = null;
+            conversations = {};
+            authOverlay.classList.remove('hidden');
+            userInfo.style.display = 'none';
+            historyList.innerHTML = '';
+            chatMessages.innerHTML = '';
+        }
+        
+        // 绑定认证事件
+        authSwitchLink.addEventListener('click', toggleAuthMode);
+        authBtn.addEventListener('click', () => {
+            if (isRegisterMode) {
+                register();
+            } else {
+                login();
+            }
+        });
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (isRegisterMode) {
+                register();
+            } else {
+                login();
+            }
+        });
+        logoutBtn.addEventListener('click', logout);
+        
+        // ========== 对话管理函数 ==========
+        
+        // 从后端加载对话列表
+        async function loadConversations() {
+            if (!currentUserId) return;
+            
+            try {
+                const response = await fetch(`http://localhost:8000/api/conversations/${currentUserId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    conversations = {};
+                    data.conversations.forEach(conv => {
+                        conversations[conv.id] = {
+                            title: conv.title,
+                            messages: [],
+                            pinned: conv.is_pinned === 1,
+                            created_at: conv.created_at
+                        };
+                    });
+                    renderHistory();
+                    
+                    // 如果有对话，加载最新的
+                    if (data.conversations.length > 0) {
+                        const latestConv = data.conversations[0];
+                        loadChat(latestConv.id);
+                    }
+                }
+            } catch (error) {
+                console.error('加载对话失败:', error);
+            }
+        }
+        
+        // 加载对话消息
+        async function loadChat(conversationId) {
+            currentConversationId = conversationId;
+            currentMessages = [];
+            
+            try {
+                const response = await fetch(`http://localhost:8000/api/messages/${conversationId}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentMessages = data.messages.map(m => ({
+                        content: m.content,
+                        isUser: m.role === 'user',
+                        isImage: m.is_image === 1
+                    }));
+                    conversations[conversationId].messages = currentMessages;
+                }
+            } catch (error) {
+                console.error('加载消息失败:', error);
+            }
+            
+            renderChatMessages();
+            renderHistory();
+        }
+        
+        // 渲染聊天消息
+        function renderChatMessages() {
+            chatMessages.innerHTML = '';
+            
+            if (currentMessages.length === 0) {
+                renderWelcomeMessage();
+                return;
+            }
+            
+            currentMessages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.isUser ? 'user-message' : 'bot-message'}`;
+                if (msg.isImage) {
+                    messageDiv.innerHTML = msg.content;
+                } else {
+                    messageDiv.textContent = msg.content;
+                }
+                chatMessages.appendChild(messageDiv);
+            });
+            
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 发送消息
+        async function sendMessage() {
+            const userMessage = messageInput.value.trim();
+            if (!userMessage) return;
+            
+            addMessage(userMessage, true);
+            messageInput.value = '';
+            showTyping();
+            
+            try {
+                const chatHistory = currentMessages.filter(m => !m.isImage).map(m => ({
+                    role: m.isUser ? 'user' : 'assistant',
+                    content: m.content
+                }));
+                
+                const response = await fetch('http://localhost:8000/api/chat', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        user_id: currentUserId,
+                        message: userMessage,
+                        chat_history: chatHistory,
+                        conversation_id: currentConversationId
+                    })
+                });
+                
+                const data = await response.json();
+                removeTyping();
+                
+                if (data.conversation_id && !currentConversationId) {
+                    currentConversationId = data.conversation_id;
+                    loadConversations();
+                }
+                
+                addMessage(data.response || data.reply || '抱歉，暂时无法回答您的问题。', false);
+            } catch (error) {
+                removeTyping();
+                console.error('发送消息失败:', error);
+                const reply = getLocalReply(userMessage, []);
+                addMessage(reply, false);
+            }
+        }
+        
+        // 新建对话
+        async function startNewChat() {
+            if (!currentUserId) return;
+            
+            try {
+                const response = await fetch('http://localhost:8000/api/conversations', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({user_id: currentUserId, title: '新对话'})
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentConversationId = data.conversation.id;
+                    currentMessages = [];
+                    conversations[data.conversation.id] = {
+                        title: '新对话',
+                        messages: [],
+                        pinned: false
+                    };
+                    renderHistory();
+                    renderWelcomeMessage();
+                }
+            } catch (error) {
+                console.error('创建对话失败:', error);
+            }
+        }
+
+        // 侧边栏状态
+        let sidebarState = {
+            isCollapsed: false,
+            width: 260
+        };
+        const MIN_WIDTH = 200;
+        const MAX_WIDTH = 400;
+        const COLLAPSED_WIDTH = 60;
+        const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+        // 初始化
+        function init() {
+            loadSidebarState();
+            applySidebarState();
+            initSpeechRecognition();
+            checkAuth();
+        }
+
+        // 初始化语音识别
+        function initSpeechRecognition() {
+            // 检查浏览器是否支持 Web Speech API
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                // 不支持语音识别
+                voiceBtn.title = '当前浏览器不支持语音输入，请使用 Chrome 或 Edge';
+                voiceBtn.style.opacity = '0.5';
+                voiceBtn.style.cursor = 'not-allowed';
+                return;
+            }
+
+            // 创建语音识别对象
+            recognition = new SpeechRecognition();
+            recognition.lang = 'zh-CN'; // 设置为中文
+            recognition.continuous = false; // 不连续识别
+            recognition.interimResults = true; // 显示临时结果
+
+            // 识别开始
+            recognition.onstart = () => {
+                console.log('语音识别已启动');
+                recordingStatus.textContent = '正在录音...';
+            };
+
+            // 识别过程中的临时结果
+            recognition.onresult = (event) => {
+                let interimTranscript = '';
+                let finalTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript;
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+
+                // 显示临时结果
+                if (interimTranscript) {
+                    recordingStatus.textContent = '正在识别...';
+                }
+
+                // 识别完成，填入输入框
+                if (finalTranscript) {
+                    recordingStatus.textContent = '识别完成！';
+                    // 将识别的文字追加到输入框
+                    if (messageInput.value) {
+                        messageInput.value += ' ' + finalTranscript;
+                    } else {
+                        messageInput.value = finalTranscript;
+                    }
+                    // 自动聚焦到输入框，方便用户修改
+                    setTimeout(() => {
+                        messageInput.focus();
+                    }, 500);
+                }
+            };
+
+            // 识别错误
+            recognition.onerror = (event) => {
+                console.error('语音识别错误:', event.error);
+                window.recordingState = 'error'; // 设置状态为错误
+                recordingStatus.textContent = '识别错误';
+
+                switch (event.error) {
+                    case 'no-speech':
+                        recordingStatus.textContent = '未检测到语音';
+                        // 1.5秒后自动关闭弹窗
+                        setTimeout(() => {
+                            stopRecording();
+                        }, 1500);
+                        break;
+                    case 'audio-capture':
+                        recordingStatus.textContent = '未找到麦克风，请检查设备';
+                        // 2秒后自动关闭弹窗
+                        setTimeout(() => {
+                            stopRecording();
+                        }, 2000);
+                        break;
+                    case 'not-allowed':
+                        recordingStatus.textContent = '麦克风权限被拒绝，请在浏览器设置中允许使用麦克风';
+                        // 立即停止录音
+                        stopRecording();
+                        // 提示用户如何开启权限
+                        setTimeout(() => {
+                            alert('语音输入需要麦克风权限！\n\n请按以下步骤操作：\n1. 点击浏览器地址栏左侧的锁定图标\n2. 找到"麦克风"设置\n3. 选择"允许"\n\n然后重新点击语音按钮即可使用。');
+                        }, 500);
+                        break;
+                    case 'network':
+                        recordingStatus.textContent = '网络错误，请检查网络连接';
+                        setTimeout(() => {
+                            stopRecording();
+                        }, 2000);
+                        break;
+                    case 'aborted':
+                        // 用户主动停止，不做处理
+                        break;
+                    default:
+                        recordingStatus.textContent = '识别错误：' + event.error;
+                        // 2秒后自动关闭弹窗
+                        setTimeout(() => {
+                            stopRecording();
+                        }, 2000);
+                }
+            };
+
+            // 识别结束
+            recognition.onend = () => {
+                console.log('语音识别已结束');
+                // 只有在正常录音状态下才重新启动（通过标志位判断）
+                if (isRecording && window.recordingState === 'active') {
+                    try {
+                        recognition.start();
+                    } catch (error) {
+                        console.log('无需重新启动识别');
+                    }
+                }
+            };
+        }
+
+        // 检查语音识别是否可用
+        function isSpeechRecognitionAvailable() {
+            return window.SpeechRecognition || window.webkitSpeechRecognition;
+        }
+
+        // 格式化录音时间
+        function formatRecordingTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        // 加载侧边栏状态
+        function loadSidebarState() {
+            const saved = localStorage.getItem('sidebarState');
+            if (saved) {
+                sidebarState = JSON.parse(saved);
+            }
+        }
+
+        // 保存侧边栏状态
+        function saveSidebarState() {
+            localStorage.setItem('sidebarState', JSON.stringify(sidebarState));
+        }
+
+        // 应用侧边栏状态
+        function applySidebarState() {
+            sidebar.style.width = sidebarState.isCollapsed ? COLLAPSED_WIDTH + 'px' : sidebarState.width + 'px';
+            if (sidebarState.isCollapsed) {
+                sidebar.classList.add('collapsed');
+                collapseBtn.textContent = '»';
+            } else {
+                sidebar.classList.remove('collapsed');
+                collapseBtn.textContent = '«';
+            }
+        }
+
+        // 切换侧边栏折叠/展开
+        function toggleSidebar() {
+            sidebarState.isCollapsed = !sidebarState.isCollapsed;
+            saveSidebarState();
+            applySidebarState();
+        }
+
+        // 拖拽调整宽度
+        let isResizing = false;
+
+        resizeHandle.addEventListener('mousedown', (e) => {
+            isResizing = true;
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isResizing) return;
+
+            const newWidth = e.clientX;
+            if (newWidth >= MIN_WIDTH && newWidth <= MAX_WIDTH) {
+                sidebarState.width = newWidth;
+                sidebar.style.width = newWidth + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            if (isResizing) {
+                isResizing = false;
+                document.body.style.cursor = '';
+                document.body.style.userSelect = '';
+                saveSidebarState();
+            }
+        });
+
+        // 收起/展开按钮点击
+        collapseBtn.addEventListener('click', toggleSidebar);
+
+        // 收缩状态下的新对话按钮
+        collapsedNewChatBtn.addEventListener('click', () => {
+            startNewChat();
+        });
+
+        // 收缩状态下的历史记录按钮
+        collapsedHistoryBtn.addEventListener('click', () => {
+            toggleSidebar();
+        });
+
+        // 从 localStorage 加载聊天记录
+        function loadChats() {
+            const saved = localStorage.getItem('legalChatHistory');
+            if (saved) {
+                chats = JSON.parse(saved);
+            }
+        }
+
+        // 保存聊天记录到 localStorage
+        function saveChats() {
+            localStorage.setItem('legalChatHistory', JSON.stringify(chats));
+        }
+
+        // 渲染欢迎消息
+        function renderWelcomeMessage() {
+            chatMessages.innerHTML = `
+                <div class="message bot-message">
+                    ⚖️ 你好！我是你的劳动权益法律咨询助手。<br><br>
+                    我专门帮助劳动者解决：<br>
+                    💰 兼职/实习工资被拖欠<br>
+                    📝 没签合同被无故辞退<br>
+                    ⏰ 加班不给加班费<br>
+                    🎓 试用期被"坑"<br>
+                    以及其他劳务纠纷问题。<br><br>
+                    ✅ 我的回答基于真实法律条款检索，不会瞎编法条。<br><br>
+                    你可以先在我这里完成一次初步咨询，<br>
+                    最后我会为你生成符合规范格式的：<br>
+                    📄 《民事起诉状草稿》<br>
+                    📄 《劳动仲裁申请书》<br>
+                    📄 《催款函》<br><br>
+                    📌 请先描述你的情况吧～<br><br>
+                    比如：我在学校旁边的奶茶店兼职，干了15天，老板说试用期没工资，没签合同，我该怎么办？
+                </div>
+            `;
+        }
+
+        // 渲染历史记录
+        function renderHistory() {
+            const convIds = Object.keys(conversations);
+            if (convIds.length === 0) {
+                historyList.innerHTML = '';
+                return;
+            }
+
+            // 按置顶和时间排序
+            convIds.sort((a, b) => {
+                if (conversations[a].pinned !== conversations[b].pinned) {
+                    return conversations[b].pinned - conversations[a].pinned;
+                }
+                return new Date(conversations[b].created_at || 0) - new Date(conversations[a].created_at || 0);
+            });
+
+            historyList.innerHTML = '';
+
+            convIds.forEach(id => {
+                const chat = conversations[id];
+                const isPinned = chat.pinned;
+                const item = document.createElement('div');
+                item.className = `history-item ${id == currentConversationId ? 'active' : ''} ${isPinned ? 'pinned' : ''}`;
+                item.dataset.id = id;
+                item.innerHTML = `
+                    <div class="history-item-title">${chat.title}</div>
+                    <button class="pin-btn ${isPinned ? 'pinned' : ''}" data-action="pin">📌</button>
+                    <button class="rename-btn" data-action="rename">✏️</button>
+                    <button class="delete-btn" data-action="delete">🗑️</button>
+                `;
+                
+                historyList.appendChild(item);
+            });
+            
+            // 点击整个条目加载对话
+            historyList.onclick = (e) => {
+                const item = e.target.closest('.history-item');
+                if (!item) return;
+                
+                const action = e.target.dataset.action;
+                const chatId = item.dataset.id;
+                
+                if (action === 'delete') {
+                    e.stopPropagation();
+                    deleteChat(chatId, e);
+                } else if (action === 'rename') {
+                    e.stopPropagation();
+                    startRename(chatId, e);
+                } else if (action === 'pin') {
+                    e.stopPropagation();
+                    togglePin(chatId, e);
+                } else {
+                    // 点击空白区域，加载对话
+                    loadChat(chatId);
+                }
+            };
+        }
+
+        // 加载历史对话
+        async function loadChatMessages(chatId) {
+            if (!conversations[chatId]) return;
+
+            currentConversationId = parseInt(chatId);
+            currentMessages = conversations[chatId].messages;
+
+            chatMessages.innerHTML = '';
+            if (currentMessages.length === 0) {
+                renderWelcomeMessage();
+            } else {
+                currentMessages.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = `message ${msg.isUser ? 'user-message' : 'bot-message'}`;
+                    if (msg.isImage) {
+                        messageDiv.innerHTML = msg.content;
+                    } else {
+                        messageDiv.textContent = msg.content;
+                    }
+                    chatMessages.appendChild(messageDiv);
+                });
+            }
+
+            renderHistory();
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 删除对话
+        async function deleteChat(chatId, event) {
+            event.stopPropagation();
+            
+            try {
+                await fetch(`http://localhost:8000/api/conversations/${chatId}`, {method: 'DELETE'});
+            } catch (error) {
+                console.error('删除对话失败:', error);
+            }
+            
+            delete conversations[chatId];
+
+            if (parseInt(chatId) === currentConversationId) {
+                const convIds = Object.keys(conversations);
+                if (convIds.length > 0) {
+                    loadChat(convIds[0]);
+                } else {
+                    startNewChat();
+                }
+            } else {
+                renderHistory();
+            }
+        }
+
+        // 切换置顶
+        async function togglePin(chatId, event) {
+            event.stopPropagation();
+            if (!conversations[chatId]) return;
+            
+            const newPinned = !conversations[chatId].pinned;
+            
+            try {
+                await fetch(`http://localhost:8000/api/conversations/${chatId}`, {
+                    method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({user_id: currentUserId, is_pinned: newPinned})
+                });
+            } catch (error) {
+                console.error('更新置顶失败:', error);
+            }
+            
+            conversations[chatId].pinned = newPinned;
+            renderHistory();
+        }
+
+        // 开始重命名
+        async function startRename(chatId, event) {
+            event.stopPropagation();
+            const chat = conversations[chatId];
+            if (!chat) return;
+
+            const historyItems = document.querySelectorAll('.history-item');
+            const targetItem = Array.from(historyItems).find(item => {
+                const titleDiv = item.querySelector('.history-item-title');
+                return titleDiv && titleDiv.textContent === chat.title;
+            });
+
+            if (targetItem) {
+                const titleDiv = targetItem.querySelector('.history-item-title');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'rename-input';
+                input.value = chat.title;
+
+                const finishRename = async () => {
+                    const newTitle = input.value.trim() || chat.title;
+                    try {
+                        await fetch(`http://localhost:8000/api/conversations/${chatId}`, {
+                            method: 'PUT',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({user_id: currentUserId, title: newTitle})
+                        });
+                    } catch (error) {
+                        console.error('重命名失败:', error);
+                    }
+                    chat.title = newTitle;
+                    renderHistory();
+                };
+
+                input.addEventListener('blur', finishRename);
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        input.blur();
+                    }
+                });
+
+                titleDiv.innerHTML = '';
+                titleDiv.appendChild(input);
+                input.focus();
+                input.select();
+            }
+        }
+
+        // 显示右键菜单
+        function showContextMenu(chatId, x, y) {
+            contextMenuChatId = chatId;
+            contextMenu.classList.add('active');
+
+            const chat = conversations[chatId];
+            if (chat) {
+                menuPin.textContent = chat.pinned ? '📌 取消置顶' : '📌 置顶';
+            }
+
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            let finalX = x;
+            let finalY = y;
+
+            if (x + 150 > viewportWidth) {
+                finalX = viewportWidth - 160;
+            }
+            if (y + 120 > viewportHeight) {
+                finalY = viewportHeight - 130;
+            }
+
+            contextMenu.style.left = finalX + 'px';
+            contextMenu.style.top = finalY + 'px';
+        }
+
+        // 隐藏右键菜单
+        function hideContextMenu() {
+            contextMenu.classList.remove('active');
+            contextMenuChatId = null;
+        }
+
+        // 右键菜单事件
+        menuRename.addEventListener('click', () => {
+            if (contextMenuChatId) {
+                hideContextMenu();
+                setTimeout(() => startRename(contextMenuChatId, { stopPropagation: () => {} }), 100);
+            }
+        });
+
+        menuPin.addEventListener('click', () => {
+            if (contextMenuChatId) {
+                hideContextMenu();
+                togglePin(contextMenuChatId, { stopPropagation: () => {} });
+            }
+        });
+
+        menuDelete.addEventListener('click', () => {
+            if (contextMenuChatId) {
+                hideContextMenu();
+                deleteChat(contextMenuChatId, { stopPropagation: () => {} });
+            }
+        });
+
+        // 点击其他地方隐藏菜单
+        document.addEventListener('click', (e) => {
+            if (!contextMenu.contains(e.target)) {
+                hideContextMenu();
+            }
+        });
+
+        document.addEventListener('contextmenu', (e) => {
+            if (!e.target.closest('.history-item')) {
+                hideContextMenu();
+            }
+        });
+
+        // 清空所有历史
+        async function clearAllHistory() {
+            if (confirm('确定要清空所有历史记录吗？')) {
+                const convIds = Object.keys(conversations);
+                for (const id of convIds) {
+                    try {
+                        await fetch(`http://localhost:8000/api/conversations/${id}`, {method: 'DELETE'});
+                    } catch (error) {
+                        console.error('删除对话失败:', error);
+                    }
+                }
+                conversations = {};
+                await startNewChat();
+            }
+        }
+
+        // 更新对话标题
+        function updateChatTitle(firstMessage) {
+            if (currentConversationId && conversations[currentConversationId]) {
+                const title = firstMessage.substring(0, 30) + (firstMessage.length > 30 ? '...' : '');
+                conversations[currentConversationId].title = title;
+                if (conversations[currentConversationId].pinned === undefined) {
+                    conversations[currentConversationId].pinned = false;
+                }
+                renderHistory();
+            }
+        }
+
+        function addMessage(content, isUser, isImage = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+
+            if (isImage) {
+                messageDiv.innerHTML = content;
+            } else {
+                // 保留换行和空格
+                messageDiv.style.whiteSpace = 'pre-wrap';
+                messageDiv.textContent = content;
+            }
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // 保存消息到当前对话
+            const messageData = {
+                content: content,
+                isUser: isUser,
+                isImage: isImage,
+                timestamp: new Date().toISOString()
+            };
+            currentMessages.push(messageData);
+
+            // 如果是第一条用户消息，更新对话标题
+            if (isUser && currentMessages.filter(m => m.isUser).length === 1) {
+                updateChatTitle(content);
+            }
+
+            // 更新本地对话数据
+            if (currentConversationId && conversations[currentConversationId]) {
+                conversations[currentConversationId].messages = currentMessages;
+            }
+        }
+
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerText = '法知明正在思考...';
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeTyping() {
+            const typing = document.getElementById('typingIndicator');
+            if (typing) typing.remove();
+        }
+
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 获取文件类型
+        function getFileType(fileName) {
+            const ext = fileName.split('.').pop().toLowerCase();
+            const imageExts = ['jpg', 'jpeg', 'png', 'heic'];
+            const docExts = ['pdf', 'doc', 'docx'];
+            const textExts = ['txt'];
+
+            if (imageExts.includes(ext)) return 'image';
+            if (docExts.includes(ext)) return 'document';
+            if (textExts.includes(ext)) return 'text';
+            return 'unknown';
+        }
+
+        // 获取文件图标
+        function getFileIcon(fileType) {
+            switch (fileType) {
+                case 'image':
+                    return '📷';
+                case 'document':
+                    return '📄';
+                case 'text':
+                    return '📝';
+                default:
+                    return '📎';
+            }
+        }
+
+        // 处理文件上传 - 真正的文件识别
+        function handleFileUpload(file) {
+            if (!file) return;
+
+            // 检查文件大小
+            if (file.size > MAX_FILE_SIZE) {
+                alert('文件大小超过10MB限制，请选择较小的文件。');
+                return;
+            }
+
+            const fileType = getFileType(file.name);
+            const fileIcon = getFileIcon(fileType);
+            const fileSize = formatFileSize(file.size);
+            const reader = new FileReader();
+
+            // 存储上传的文件内容供后续分析
+            window.uploadedFileContent = null;
+            window.uploadedFileType = fileType;
+            window.uploadedFileName = file.name;
+
+            if (fileType === 'image') {
+                reader.onload = (event) => {
+                    const imageHtml = `
+                        <div class="message-file">
+                            <div class="file-icon">${fileIcon}</div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${fileSize}</div>
+                                <div class="file-uploading">图片已上传，正在识别...</div>
+                            </div>
+                        </div>
+                        <img src="${event.target.result}" class="message-image" alt="${file.name}" style="margin-top: 8px;">
+                    `;
+                    addMessage(imageHtml, true, true);
+
+                    showTyping();
+                    // 模拟OCR识别，然后生成自然回复
+                    setTimeout(() => {
+                        removeTyping();
+                        // 根据文件名和图片特征生成自然回复
+                        const fileName = file.name.toLowerCase();
+                        let response = '';
+                        
+                        if (fileName.includes('工资') || fileName.includes('条')) {
+                            response = `看到了，这是您的工资条对吧？`;
+                        } else if (fileName.includes('合同')) {
+                            response = `这份是劳动合同吧？我来看看内容...`;
+                        } else if (fileName.includes('辞退') || fileName.includes('通知')) {
+                            response = `这是辞退通知或者相关文书吗？`;
+                        } else if (fileName.includes('仲裁') || fileName.includes('申请书')) {
+                            response = `这份是仲裁申请书或者相关材料？`;
+                        } else {
+                            response = `收到您发的图片了，我看了一下，这应该是和您工作相关的东西吧？`;
+                        }
+                        
+                        // 尝试从图片数据中提取文字
+                        if (event.target.result) {
+                            window.uploadedFileContent = event.target.result;
+                            // 简单提取文件名中的关键信息
+                            const keywords = file.name.match(/[\u4e00-\u9fa5a-zA-Z0-9]+/g) || [];
+                            window.uploadedFileKeywords = keywords.join(' ');
+                        }
+                        
+                        addMessage(response, false);
+                    }, 1500);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                reader.onload = (event) => {
+                    const fileHtml = `
+                        <div class="message-file">
+                            <div class="file-icon">${fileIcon}</div>
+                            <div class="file-info">
+                                <div class="file-name">${file.name}</div>
+                                <div class="file-size">${fileSize}</div>
+                                <div class="file-uploading">正在读取文件内容...</div>
+                            </div>
+                        </div>
+                    `;
+                    addMessage(fileHtml, true, true);
+
+                    showTyping();
+                    setTimeout(() => {
+                        removeTyping();
+                        const fileName = file.name.toLowerCase();
+                        let response = '';
+                        
+                        // 根据文件类型和名称生成自然回复
+                        if (fileType === 'text') {
+                            // 尝试读取文本内容
+                            try {
+                                const textContent = event.target.result;
+                                window.uploadedFileContent = textContent;
+                                // 提取文本中的关键信息
+                                const hasMoney = textContent.includes('元') || textContent.includes('工资') || textContent.includes('钱');
+                                const hasContract = textContent.includes('合同') || textContent.includes('甲方') || textContent.includes('乙方');
+                                const hasDate = textContent.includes('年') && textContent.includes('月');
+                                
+                                if (hasContract) {
+                                    response = `我看到了，这是一份合同文件。让我帮您看看里面的条款有没有对您不利的地方...`;
+                                } else if (hasMoney) {
+                                    response = `这份文件里涉及一些金额和工资相关的内容，我帮您梳理一下要点。`;
+                                } else if (hasDate) {
+                                    response = `这份文件有一些日期记录，我来看看时间线。`;
+                                } else {
+                                    response = `收到这份文件了，我先看看内容。`;
+                                }
+                            } catch (e) {
+                                response = `收到您的文件：${file.name}，我来看看里面的内容。`;
+                            }
+                        } else {
+                            // PDF/Word文档
+                            window.uploadedFileContent = event.target.result;
+                            if (fileName.includes('工资')) {
+                                response = `这份应该是工资相关的文件吧？我来帮您看看有没有什么问题。`;
+                            } else if (fileName.includes('合同')) {
+                                response = `这是劳动合同对吧？我来帮您分析一下里面的条款。`;
+                            } else if (fileName.includes('辞退') || fileName.includes('解除')) {
+                                response = `这应该是解除/辞退相关的文件？让我帮您看看有没有违法条款。`;
+                            } else if (fileName.includes('仲裁')) {
+                                response = `这份是仲裁申请材料？我来帮您看看内容是否完整。`;
+                            } else {
+                                response = `收到您的文档：${file.name}，我来看看里面的内容能不能帮到您。`;
+                            }
+                        }
+                        
+                        addMessage(response, false);
+                    }, 1500);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 全局变量存储对话上下文
+        window.userContext = {
+            name: null,
+            company: null,
+            problem: null,
+            salary: null,
+            duration: null,
+            contract: null,
+            insurance: null,
+            hasEvidence: false,
+            mentionedProblems: []
+        };
+
+        // 本地法律咨询回复 - 像朋友聊天一样
+        function getLocalReply(message, chatHistory = []) {
+            const msg = message.trim();
+            const msgLower = msg.toLowerCase();
+            
+            // 更新用户上下文
+            updateUserContext(msg);
+            
+            // 获取之前对话中提取的信息
+            const prevContext = extractContextFromHistory(chatHistory);
+            
+            // 如果用户只是在回答问题（很短的回答），给出温暖的确认
+            if (msg.length < 15 && prevContext.problem) {
+                return processFollowUp(msg, prevContext);
+            }
+            
+            // 理解用户说的是什么问题
+            const problem = identifyProblem(msg);
+            
+            // 如果之前已经知道问题，继续深入
+            if (prevContext.problem && !problem) {
+                return continueConversation(msg, prevContext);
+            }
+            
+            // 根据问题类型生成温暖自然的回复
+            if (problem === 'salary') {
+                return handleSalaryProblem(msg, prevContext);
+            }
+            if (problem === 'trial') {
+                return handleTrialProblem(msg, prevContext);
+            }
+            if (problem === 'contract') {
+                return handleContractProblem(msg, prevContext);
+            }
+            if (problem === 'fired') {
+                return handleFiredProblem(msg, prevContext);
+            }
+            if (problem === 'overtime') {
+                return handleOvertimeProblem(msg, prevContext);
+            }
+            if (problem === 'insurance') {
+                return handleInsuranceProblem(msg, prevContext);
+            }
+            if (problem === 'injury') {
+                return handleInjuryProblem(msg, prevContext);
+            }
+            if (problem === 'quit') {
+                return handleQuitProblem(msg, prevContext);
+            }
+            if (problem === 'harassment') {
+                return handleHarassmentProblem(msg, prevContext);
+            }
+            
+            // 默认回复
+            return handleGeneralQuestion(msg, prevContext);
+        }
+
+        // 更新用户上下文
+        function updateUserContext(msg) {
+            const msgLower = msg.toLowerCase();
+            
+            // 提取金额
+            const amountMatch = msg.match(/(\d+)\s*元/);
+            if (amountMatch) window.userContext.salary = amountMatch[1];
+            
+            // 提取时间
+            const durationMatch = msg.match(/(\d+)\s*(天|个月|年|周)/);
+            if (durationMatch) window.userContext.duration = durationMatch[0];
+            
+            // 提取是否签合同
+            if (msgLower.includes('签了合同') || msgLower.includes('有合同')) {
+                window.userContext.contract = true;
+            }
+            if (msgLower.includes('没签') || msgLower.includes('没合同') || msgLower.includes('未签')) {
+                window.userContext.contract = false;
+            }
+            
+            // 提取是否缴社保
+            if (msgLower.includes('缴了社保') || msgLower.includes('有社保')) {
+                window.userContext.insurance = true;
+            }
+            if (msgLower.includes('没缴') || msgLower.includes('没社保')) {
+                window.userContext.insurance = false;
+            }
+            
+            // 提取公司名称
+            const companyMatch = msg.match(/(在|from|.*?)(.+?(奶茶店|餐厅|公司|工厂|工地|超市|店铺|店|厂))/i);
+            if (companyMatch) window.userContext.company = companyMatch[2];
+            
+            // 记录提到的问题
+            if (msgLower.includes('拖欠') || msgLower.includes('不给工资')) {
+                if (!window.userContext.mentionedProblems.includes('salary')) {
+                    window.userContext.mentionedProblems.push('salary');
+                }
+            }
+            if (msgLower.includes('试用期')) {
+                if (!window.userContext.mentionedProblems.includes('trial')) {
+                    window.userContext.mentionedProblems.push('trial');
+                }
+            }
+            if (msgLower.includes('辞退') || msgLower.includes('开除')) {
+                if (!window.userContext.mentionedProblems.includes('fired')) {
+                    window.userContext.mentionedProblems.push('fired');
+                }
+            }
+        }
+
+        // 从历史中提取上下文
+        function extractContextFromHistory(chatHistory) {
+            const context = {
+                problem: null,
+                salary: null,
+                duration: null,
+                contract: null,
+                insurance: null,
+                mentionedProblems: [],
+                isAskingMore: false
+            };
+            
+            chatHistory.forEach(item => {
+                const text = item.content.toLowerCase();
+                
+                // 提取金额
+                const amountMatch = item.content.match(/(\d+)\s*元/);
+                if (amountMatch) context.salary = amountMatch[1];
+                
+                // 提取时间
+                const durationMatch = item.content.match(/(\d+)\s*(天|个月|年|周)/);
+                if (durationMatch) context.duration = durationMatch[0];
+                
+                // 判断问题类型
+                if (text.includes('工资') && (text.includes('拖欠') || text.includes('不给') || text.includes('欠'))) {
+                    context.problem = 'salary';
+                    if (!context.mentionedProblems.includes('salary')) context.mentionedProblems.push('salary');
+                }
+                if (text.includes('试用期') || text.includes('试工')) {
+                    context.problem = 'trial';
+                    if (!context.mentionedProblems.includes('trial')) context.mentionedProblems.push('trial');
+                }
+                if (text.includes('没签合同') || text.includes('未签合同')) {
+                    context.problem = 'contract';
+                    context.contract = false;
+                    if (!context.mentionedProblems.includes('contract')) context.mentionedProblems.push('contract');
+                }
+                if (text.includes('辞退') || text.includes('开除') || text.includes('解雇')) {
+                    context.problem = 'fired';
+                    if (!context.mentionedProblems.includes('fired')) context.mentionedProblems.push('fired');
+                }
+                if (text.includes('加班')) {
+                    context.problem = 'overtime';
+                    if (!context.mentionedProblems.includes('overtime')) context.mentionedProblems.push('overtime');
+                }
+                if (text.includes('社保') || text.includes('保险')) {
+                    context.problem = 'insurance';
+                    if (!context.mentionedProblems.includes('insurance')) context.mentionedProblems.push('insurance');
+                }
+                if (text.includes('工伤') || text.includes('受伤')) {
+                    context.problem = 'injury';
+                    if (!context.mentionedProblems.includes('injury')) context.mentionedProblems.push('injury');
+                }
+                if (text.includes('辞职') || text.includes('离职')) {
+                    context.problem = 'quit';
+                    if (!context.mentionedProblems.includes('quit')) context.mentionedProblems.push('quit');
+                }
+                
+                // 判断是否在问更多问题
+                if (text.includes('请问') || text.includes('能具体') || text.includes('详细说说')) {
+                    context.isAskingMore = true;
+                }
+            });
+            
+            // 合并全局上下文
+            if (window.userContext.salary) context.salary = window.userContext.salary;
+            if (window.userContext.duration) context.duration = window.userContext.duration;
+            if (window.userContext.contract !== null) context.contract = window.userContext.contract;
+            if (window.userContext.insurance !== null) context.insurance = window.userContext.insurance;
+            context.mentionedProblems = window.userContext.mentionedProblems;
+            
+            return context;
+        }
+
+        // 识别问题类型
+        function identifyProblem(msg) {
+            const msgLower = msg.toLowerCase();
+            
+            if (msgLower.includes('拖欠') || (msgLower.includes('工资') && (msgLower.includes('不给') || msgLower.includes('不发') || msgLower.includes('欠') || msgLower.includes('没发')))) {
+                return 'salary';
+            }
+            if (msgLower.includes('试用期') || msgLower.includes('试工')) {
+                return 'trial';
+            }
+            if (msgLower.includes('没签合同') || msgLower.includes('未签合同') || (msgLower.includes('合同') && msgLower.includes('问题'))) {
+                return 'contract';
+            }
+            if (msgLower.includes('辞退') || msgLower.includes('开除') || msgLower.includes('解雇') || msgLower.includes('裁员')) {
+                return 'fired';
+            }
+            if (msgLower.includes('加班') || msgLower.includes('加班费')) {
+                return 'overtime';
+            }
+            if (msgLower.includes('社保') || msgLower.includes('保险') || msgLower.includes('公积金')) {
+                return 'insurance';
+            }
+            if (msgLower.includes('工伤') || (msgLower.includes('受伤') && (msgLower.includes('工作') || msgLower.includes('上班')))) {
+                return 'injury';
+            }
+            if (msgLower.includes('辞职') || msgLower.includes('离职') || msgLower.includes('不干了')) {
+                return 'quit';
+            }
+            if (msgLower.includes('骚扰') || msgLower.includes('性骚扰') || msgLower.includes('领导骚扰')) {
+                return 'harassment';
+            }
+            if (msgLower.includes('押金') || msgLower.includes('扣押证件')) {
+                return 'deposit';
+            }
+            if (msgLower.includes('年假') || msgLower.includes('带薪假')) {
+                return 'vacation';
+            }
+            if (msgLower.includes('赔偿') || msgLower.includes('补偿金')) {
+                return 'compensation';
+            }
+            
+            return null;
+        }
+
+        // 处理追问
+        function processFollowUp(msg, context) {
+            const msgLower = msg.toLowerCase();
+            
+            // 确认是/否回答
+            const yesKeywords = ['签了', '有', '对的', '是的', '嗯', '交了', '好的', '知道', '明白'];
+            const noKeywords = ['没签', '没有', '不对', '不是', '没交', '没给'];
+            
+            let isYes = yesKeywords.some(k => msgLower.includes(k));
+            let isNo = noKeywords.some(k => msgLower.includes(k));
+            
+            // 更新上下文
+            if (isYes || isNo) {
+                if (context.problem === 'salary') {
+                    // 根据之前问的问题判断
+                    if (msgLower.includes('合同') || msgLower.includes('签合同')) {
+                        window.userContext.contract = isYes;
+                    }
+                    if (msgLower.includes('社保')) {
+                        window.userContext.insurance = isYes;
+                    }
+                }
+            }
+            
+            // 根据已知信息给出下一步建议
+            if (context.problem === 'salary') {
+                const contract = window.userContext.contract;
+                const insurance = window.userContext.insurance;
+                
+                if (contract === false && insurance === false) {
+                    return `好的，那这种情况对您维权其实是有利的！没签合同加没缴社保，老板已经违法了。\n\n您可以主张：\n• 从第二个月起每月双倍工资\n• 补缴所有社保\n• 补发拖欠的工资\n\n建议您先把这些证据整理好：工资转账记录、聊天记录、工作照片或视频、考勤记录等，有这些就够了。`;
+                } else if (contract === false) {
+                    return `好的，没签合同这个问题比较关键。\n\n您可以主张从第二个月起的双倍工资。比如您干了半年没签合同，最多可以要5个月的双倍工资。\n\n先把能证明您在那儿工作的证据整理一下：转账记录、工作群聊天、考勤等。`;
+                } else if (insurance === false) {
+                    return `好的，没缴社保也是违法的。\n\n您可以要求公司补缴社保，这是法定义务。同时，如果公司一直没给您缴社保，您还可以以此为由提出被迫离职，还能拿经济补偿金。`;
+                } else {
+                    // 继续问下一个问题
+                    if (context.salary && context.duration) {
+                        return `明白了。工资${context.salary}元，${context.duration}，这种情况您可以先试试和老板协商，如果不行就去申请劳动仲裁，这个是免费的。\n\n请问您有没有什么证据？比如工资条、聊天记录之类的？`;
+                    }
+                }
+            }
+            
+            // 简短回答后的温暖确认
+            return `好的，我记住了。\n\n请问还有其他的吗？比如公司的处理方式是什么、有没有人能证明之类的？`;
+        }
+
+        // 继续对话
+        function continueConversation(msg, context) {
+            const msgLower = msg.toLowerCase();
+            
+            if (context.problem === 'salary') {
+                return handleSalaryProblem(msg, context);
+            }
+            if (context.problem === 'fired') {
+                return handleFiredProblem(msg, context);
+            }
+            if (context.problem === 'contract') {
+                return handleContractProblem(msg, context);
+            }
+            
+            return handleGeneralQuestion(msg, context);
+        }
+
+        // 工资问题
+        function handleSalaryProblem(msg, context) {
+            const msgLower = msg.toLowerCase();
+            
+            // 检查是否回答了之前的问题
+            const answeredQuestions = [];
+            if (msgLower.includes('签了') || msgLower.includes('有合同')) {
+                answeredQuestions.push('contract');
+                window.userContext.contract = true;
+            }
+            if (msgLower.includes('没签') || msgLower.includes('没合同')) {
+                answeredQuestions.push('contract');
+                window.userContext.contract = false;
+            }
+            if (msgLower.includes('缴了') || msgLower.includes('有社保')) {
+                answeredQuestions.push('insurance');
+                window.userContext.insurance = true;
+            }
+            if (msgLower.includes('没缴') || msgLower.includes('没社保')) {
+                answeredQuestions.push('insurance');
+                window.userContext.insurance = false;
+            }
+            
+            let response = '';
+            
+            // 提取金额
+            const amountMatch = msg.match(/(\d+)\s*元/);
+            if (amountMatch) window.userContext.salary = amountMatch[1];
+            const durationMatch = msg.match(/(\d+)\s*(天|个月|年)/);
+            if (durationMatch) window.userContext.duration = durationMatch[0];
+            
+            const salary = window.userContext.salary || (amountMatch ? amountMatch[1] : null);
+            const duration = window.userContext.duration || (durationMatch ? durationMatch[0] : null);
+            
+            // 综合分析
+            if (window.userContext.contract === false || window.userContext.insurance === false) {
+                response = `老板拖欠工资这事确实气人，不过您的情况还没那么难办。\n\n`;
+                if (window.userContext.contract === false) {
+                    response += `没签合同这一点对您反而是有利的——法律上从第二个月起，您就可以要求双倍工资。干了多久就能算几个月的双倍工资。\n\n`;
+                }
+                if (window.userContext.insurance === false) {
+                    response += `没缴社保也是违法的，这个您可以要求公司补缴。\n\n`;
+                }
+                if (salary) {
+                    response += `您说每月${salary}元，`;
+                }
+                if (duration) {
+                    response += `干了${duration}，`;
+                }
+                response += `这种情况您可以这样做：\n\n`;
+                response += `第一步，把能证明劳动关系的证据整理好：工资转账记录、和老板的聊天记录、工作时的照片或视频、考勤记录等。\n\n`;
+                response += `第二步，拿着这些证据直接去找老板谈，要求补发工资，这时候您的证据充足，底气也足。\n\n`;
+                response += `第三步，如果老板还是不给，就去申请劳动仲裁。劳动仲裁是免费的，而且流程不复杂，很多情况下用人单位一收到仲裁通知就会主动和解。\n\n`;
+                response += `您看这个流程清楚吗？`;
+            } else {
+                response = `这种情况确实挺让人烦的。老板拖欠工资肯定不对，咱们得想办法把血汗钱要回来。\n\n`;
+                if (salary) {
+                    response += `您说每月${salary}元，`;
+                }
+                if (duration) {
+                    response += `已经${duration}没发工资了，`;
+                }
+                response += `\n\n您有没有保留什么证据？比如工资条、工资转账记录、或者和老板聊过这个事的聊天记录？这些很重要，有的话咱们维权就容易多了。`;
+            }
+            
+            return response;
+        }
+
+        // 试用期问题
+        function handleTrialProblem(msg, context) {
+            return `试用期不给钱这种事真的太欺负人了！您别担心，法律明确说了，试用期也是要发工资的。\n\n哪怕是试用期第一天，老板也得按约定给您发钱，不能说"试工没工资"这种话。\n\n请问您这种情况持续多久了？老板具体是怎么说的？有没有什么证据，比如聊天记录、工作证之类的？`;
+        }
+
+        // 合同问题
+        function handleContractProblem(msg, context) {
+            return `没签合同确实让人担心，但好消息是，法律站在您这边！\n\n根据规定，用人单位超过一个月不签合同，从第二个月起就要付双倍工资。满一年不签，直接视为无固定期限劳动合同。\n\n也就是说，没签合同不等于白干，您一样可以要工资、要补偿。\n\n您在那儿工作了多久了？有没有什么证据能证明您在那儿上班？比如工资流水、聊天记录、工作服、工作群之类的？`;
+        }
+
+        // 辞退问题
+        function handleFiredProblem(msg, context) {
+            const msgLower = msg.toLowerCase();
+            const duration = window.userContext.duration || context.duration;
+            
+            let response = `被辞退这事确实让人心里不舒服，先别着急，咱们来看看怎么处理。\n\n`;
+            
+            if (msgLower.includes('没有') || msgLower.includes('无故') || msgLower.includes('没理由')) {
+                response += `如果是没正当理由就把您辞退了，那就是违法解除劳动合同，这种情况您可以要求2N倍的赔偿金。\n\n`;
+                if (duration) {
+                    const years = parseInt(duration) || 1;
+                    response += `您说在那儿工作了${duration}，如果违法辞退就是${years * 2}个月的工资赔偿。\n\n`;
+                }
+                response += `关键是要拿到书面的辞退通知，还要看看公司有没有给您缴纳社保、签没签合同，这些都会影响您能拿到的赔偿。`;
+            } else {
+                response += `请问老板是以什么理由辞退您的？有提前通知您吗？有没有给您出具书面的辞退通知？`;
+            }
+            
+            return response;
+        }
+
+        // 加班问题
+        function handleOvertimeProblem(msg, context) {
+            return `加班不给加班费确实是很多公司的通病，但法律是有明确规定的。\n\n工作日加班要给1.5倍工资，休息日加班又不能补休的要2倍，法定节假日加班要3倍。\n\n您经常加班吗？有没有加班的记录？比如打卡记录、加班时的工作成果、或者领导安排加班的通知？这些都能作为证据。`;
+        }
+
+        // 社保问题
+        function handleInsuranceProblem(msg, context) {
+            return `不缴社保这事太常见了，但这是违法的！\n\n社保是法定义务，公司必须缴，这是没得商量的。\n\n如果公司一直没给您缴社保，您可以：\n1. 要求公司把之前没缴的都补上\n2. 如果公司一直不缴，您还可以以此为由提出被迫离职，还能拿到经济补偿金\n3. 也可以直接向社保局投诉举报\n\n请问公司是从什么时候开始没给您缴的？`;
+        }
+
+        // 工伤问题
+        function handleInjuryProblem(msg, context) {
+            return `工作中受伤一定要重视！不管伤情大小，先跟您说两个最重要的事：\n\n第一，赶紧去医院看病治疗，这个是第一位的。\n\n第二，保留好所有和受伤相关的证据，比如就医记录、事故现场的照片或视频、同事证言等。\n\n工伤认定是有时间限制的，如果单位不在30天内申请，您自己或者家人也可以在1年内去申请。\n\n请问您现在伤情怎么样？是工作中受伤还是上下班路上发生的？`;
+        }
+
+        // 离职问题
+        function handleQuitProblem(msg, context) {
+            const msgLower = msg.toLowerCase();
+            
+            let response = '';
+            
+            if (msgLower.includes('被迫') || msgLower.includes('被逼') || msgLower.includes('不想干')) {
+                response = `如果是被迫离职，比如公司拖欠工资、不缴社保、或者有其他违法行为，那您不仅可以走人，还能要求经济补偿金。\n\n`;
+                response += `这种情况下，建议您先收集好公司违法的证据，然后用书面形式通知公司解除劳动合同，记得留好送达证明。\n\n`;
+                response += `您是遇到什么情况了？是拖欠工资还是其他问题？`;
+            } else {
+                response = `想辞职的话，其实没那么复杂。\n\n`;
+                response += `正常情况下，提前30天书面通知公司就可以了（试用期提前3天）。到时间您就可以走，公司没有权利不让您走。\n\n`;
+                response += `不过辞职前建议您想清楚：有没有结清的工资、有没有未休的年假、社保缴到什么时候了？这些都要处理好。\n\n`;
+                response += `请问您是为什么想辞职？是想换工作还是有什么其他原因？`;
+            }
+            
+            return response;
+        }
+
+        // 骚扰问题
+        function handleHarassmentProblem(msg, context) {
+            return `职场骚扰这事绝对不能忍！不管是领导还是同事，对您进行骚扰都是违法的。\n\n首先，您要注意保护好自己，尽量不要单独和对方待在一起，重要的对话可以录音保留证据。\n\n其次，您可以向公司的人事部门或者更高层领导反映情况。如果公司不处理，可以向工会投诉，或者直接报警。\n\n请问具体是什么情况？`;
+        }
+
+        // 押金/扣押问题
+        function handleDepositProblem(msg, context) {
+            return `扣押证件、收取押金都是违法的！\n\n劳动合同法明确禁止用人单位扣押劳动者的身份证、学历证书等证件，也不得以任何名义收取押金或保证金。\n\n如果公司扣了您的东西或收了押金，您可以向劳动监察部门举报，要求退还。\n\n请问公司扣押的是什么？收了多少钱？`;
+        }
+
+        // 年假问题
+        function handleVacationProblem(msg, context) {
+            return `年假是劳动者的法定权利，工作满一年就有5天带薪年假，工作时间越长假越多。\n\n如果公司不让您休年假，又不支付未休年假的工资，这也是违法的，您可以要求公司支付年假工资。\n\n请问您是年假不让休，还是公司说不给年假工资？`;
+        }
+
+        // 赔偿问题
+        function handleCompensationProblem(msg, context) {
+            return `关于赔偿的问题，要看具体情况：\n\n违法辞退（没正当理由）：赔偿2N倍工资（N=工作年限）\n合法辞退但要您走人：补偿N倍工资\n拖欠工资：补发工资，可能还有赔偿金\n工伤：根据伤残等级确定赔偿\n\n请问您是哪种情况？`;
+        }
+
+        // 综合问题处理
+        function handleGeneralQuestion(msg, context) {
+            // 检查是否有上传的文件内容
+            if (window.uploadedFileContent) {
+                return `收到您发的文件了，我先看看... ${window.uploadedFileKeywords ? '文件名里有' + window.uploadedFileKeywords + '，' : ''}请问这个文件和您的问题相关吗？`;
+            }
+            
+            // 用户只是在打招呼
+            if (msg.includes('你好') || msg.includes('您好') || msg.includes('hi') || msg.includes('hello')) {
+                return `您好！很高兴为您服务。\n\n有什么劳动权益方面的问题想咨询吗？比如工资被拖欠、被辞退、没签合同、加班费什么的，都可以跟我说说。`;
+            }
+            
+            // 用户表示感谢
+            if (msg.includes('谢谢') || msg.includes('感谢')) {
+                return `不客气！能帮到您我也很开心。\n\n还有什么问题吗？或者您的情况我还有什么不清楚的地方，咱们继续聊。`;
+            }
+            
+            // 用户说知道了
+            if (msg.includes('知道了') || msg.includes('明白了') || msg.includes('懂了')) {
+                return `好的，那您还有什么想问的吗？\n\n比如具体怎么操作、要准备什么材料、去哪里投诉等等，我都可以帮您解答。`;
+            }
+            
+            // 用户说没有/没了
+            if (msg.includes('没有') && msg.length < 10) {
+                return `好的。那您如果后续还有什么问题，随时可以回来问我。\n\n祝您顺利解决问题！`;
+            }
+            
+            // 用户问能不能/可不可以
+            if (msg.includes('能不能') || msg.includes('可以吗') || msg.includes('可以吗')) {
+                return `这个您可以放心，法律是支持您的。\n\n具体要怎么做，我可以给您详细说说。`;
+            }
+            
+            // 用户的回复中提到了具体信息
+            if (context.mentionedProblems.length > 0) {
+                const problems = context.mentionedProblems;
+                if (problems.includes('salary')) {
+                    return handleSalaryProblem(msg, context);
+                }
+                if (problems.includes('fired')) {
+                    return handleFiredProblem(msg, context);
+                }
+                if (problems.includes('contract')) {
+                    return handleContractProblem(msg, context);
+                }
+            }
+            
+            // 默认温暖回复
+            const responses = [
+                `我明白您的意思。说实话，我需要多了解一些情况才能更好地帮您分析。\n\n能跟我说说具体是什么问题吗？比如是在什么情况下发生的、有没有和公司沟通过？`,
+                `好的，我听明白了。您能再跟我说说这件事的前因后果吗？越详细我越能帮到您。`,
+                `嗯嗯，我理解您的心情。能把事情从头到尾跟我说说吗？这样我好帮您分析分析。`
+            ];
+            
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        // 语音按钮点击事件（鼠标按下开始录音）
+        voiceBtn.addEventListener('mousedown', () => {
+            // 检查是否支持语音识别
+            if (!isSpeechRecognitionAvailable()) {
+                alert('当前浏览器不支持语音输入，请使用 Chrome 或 Edge');
+                return;
+            }
+
+            // 如果正在录音，不重复开始
+            if (isRecording) return;
+
+            // 如果识别对象不存在，先初始化
+            if (!recognition) {
+                initSpeechRecognition();
+                if (!recognition) {
+                    alert('语音识别初始化失败，请刷新页面重试');
+                    return;
+                }
+            }
+
+            isRecording = true;
+            voiceRecording.classList.add('active');
+            recordingStatus.textContent = '请求麦克风权限...';
+            recordingTime.textContent = '0:00';
+
+            // 开始计时
+            recordingStartTime = Date.now();
+            recordingTimer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+                recordingTime.textContent = formatRecordingTime(elapsed);
+
+                // 超过最大录音时间
+                if (elapsed >= MAX_RECORDING_TIME) {
+                    stopRecording();
+                }
+            }, 1000);
+
+            // 延迟一点开始语音识别，让界面先显示出来
+            setTimeout(() => {
+                if (isRecording) {
+                    window.recordingState = 'active'; // 设置状态标志
+                    try {
+                        recognition.start();
+                    } catch (error) {
+                        console.error('启动语音识别失败:', error);
+                        recordingStatus.textContent = '启动失败：' + error.message;
+                        window.recordingState = 'error';
+                        setTimeout(() => {
+                            stopRecording();
+                        }, 2000);
+                    }
+                }
+            }, 100);
+        });
+
+        // 鼠标松开停止录音
+        voiceBtn.addEventListener('mouseup', () => {
+            if (isRecording) {
+                stopRecording();
+            }
+        });
+
+        // 鼠标移出停止录音
+        voiceBtn.addEventListener('mouseleave', () => {
+            if (isRecording) {
+                stopRecording();
+            }
+        });
+
+        // 触摸设备支持（触摸开始）
+        voiceBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+
+            // 检查是否支持语音识别
+            if (!isSpeechRecognitionAvailable()) {
+                alert('当前浏览器不支持语音输入，请使用 Chrome 或 Edge');
+                return;
+            }
+
+            if (isRecording) return;
+
+            // 如果识别对象不存在，先初始化
+            if (!recognition) {
+                initSpeechRecognition();
+                if (!recognition) {
+                    alert('语音识别初始化失败，请刷新页面重试');
+                    return;
+                }
+            }
+
+            isRecording = true;
+            voiceRecording.classList.add('active');
+            recordingStatus.textContent = '请求麦克风权限...';
+            recordingTime.textContent = '0:00';
+
+            recordingStartTime = Date.now();
+            recordingTimer = setInterval(() => {
+                const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+                recordingTime.textContent = formatRecordingTime(elapsed);
+
+                if (elapsed >= MAX_RECORDING_TIME) {
+                    stopRecording();
+                }
+            }, 1000);
+
+            // 延迟一点开始语音识别
+            setTimeout(() => {
+                if (isRecording) {
+                    window.recordingState = 'active'; // 设置状态标志
+                    try {
+                        recognition.start();
+                    } catch (error) {
+                        console.error('启动语音识别失败:', error);
+                        recordingStatus.textContent = '启动失败：' + error.message;
+                        window.recordingState = 'error';
+                        setTimeout(() => {
+                            stopRecording();
+                        }, 2000);
+                    }
+                }
+            }, 100);
+        });
+
+        // 触摸设备支持（触摸结束）
+        voiceBtn.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (isRecording) {
+                stopRecording();
+            }
+        });
+
+        // 停止录音的辅助函数
+        function stopRecording() {
+            if (!isRecording) return;
+
+            isRecording = false;
+            window.recordingState = 'stopped'; // 设置状态标志
+
+            // 清除计时器
+            if (recordingTimer) {
+                clearInterval(recordingTimer);
+                recordingTimer = null;
+            }
+
+            // 停止语音识别
+            try {
+                if (recognition) {
+                    recognition.abort(); // 使用 abort 而不是 stop，强制停止
+                }
+            } catch (error) {
+                console.error('停止语音识别失败:', error);
+            }
+
+            // 关闭录音弹窗（延迟一点，让用户看到最后的提示）
+            setTimeout(() => {
+                voiceRecording.classList.remove('active');
+            }, 100);
+        }
+
+        // 上传文件按钮
+        uploadFileBtn.addEventListener('click', () => {
+            console.log('上传按钮点击');
+            fileInput.click();
+        });
+
+        // 文件选择
+        fileInput.addEventListener('change', (e) => {
+            console.log('文件选择变化', e.target.files);
+            const file = e.target.files[0];
+            if (file) {
+                handleFileUpload(file);
+            }
+            fileInput.value = '';
+        });
+
+        // 新对话按钮
+        newChatBtn.addEventListener('click', () => {
+            startNewChat();
+        });
+
+        // 清空历史按钮
+        clearHistoryBtn.addEventListener('click', () => {
+            clearAllHistory();
+        });
+
+        // 侧边栏鼠标离开时恢复收缩状态
+        sidebar.addEventListener('mouseleave', () => {
+            if (sidebarState.isCollapsed) {
+                sidebar.style.width = COLLAPSED_WIDTH + 'px';
+                sidebar.classList.add('collapsed');
+            }
+        });
+
+        console.log('开始绑定事件，sendBtn:', sendBtn, 'messageInput:', messageInput);
+        
+        sendBtn.addEventListener('click', () => {
+            console.log('发送按钮点击');
+            sendMessage();
+        });
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                console.log('回车键发送');
+                sendMessage();
+            }
+        });
+        console.log('事件绑定完成');
+
+        // 初始化应用
+        console.log('初始化应用...');
+        try {
+            init();
+            console.log('初始化完成');
+        } catch (e) {
+            console.error('初始化错误:', e);
+        }
+        }); // DOMContentLoaded 结束
+    </script>
+</body>
+</html>

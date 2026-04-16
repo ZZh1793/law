@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>劳动者权益法律咨询助手 - 新手指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* 顶部导航 */
+        .header {
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .header-icon {
+            font-size: 32px;
+            margin-right: 10px;
+        }
+
+        /* 快速跳转导航栏 */
+        .quick-nav {
+            background: #1e3a5f;
+            padding: 12px 0;
+            position: sticky;
+            top: 72px;
+            z-index: 99;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .quick-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .quick-nav-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .quick-nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .quick-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .quick-nav-btn.active {
+            background: white;
+            color: #1e3a5f;
+            border-color: white;
+        }
+
+        /* 主体内容 */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        /* 欢迎卡片 */
+        .welcome-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+        }
+
+        .welcome-card h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .welcome-card p {
+            font-size: 18px;
+            opacity: 0.95;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .welcome-features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 分步骤教学 */
+        .steps-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: #1e3a5f;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 32px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 3px;
+        }
+
+        .steps-container {
+            display: grid;
+            gap: 24px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            border-radius: 50%;
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        .step-card h3 {
+            font-size: 22px;
+            color: #1e3a5f;
+            margin-bottom: 16px;
+        }
+
+        .step-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3a5a7a;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+        }
+
+        .example-box h4 {
+            color: #3a5a7a;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .example-box p {
+            color: #555;
+            font-size: 14px;
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* 对话演示 */
+        .chat-demo {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 16px;
+        }
+
+        .chat-bubble {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            position: relative;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .chat-bubble.user {
+            background: #3a5a7a;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-bubble.assistant {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* 功能图标 */
+        .feature-icons {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .feature-icon-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f4f8;
+            padding: 12px 20px;
+            border-radius: 25px;
+        }
+
+        .feature-icon-item svg {
+            width: 24px;
+            height: 24px;
+            fill: #3a5a7a;
+        }
+
+        /* 侧边栏说明 */
+        .sidebar-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .sidebar-demo {
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            color: white;
+        }
+
+        .sidebar-demo-inner {
+            display: flex;
+            gap: 16px;
+        }
+
+        .sidebar-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-arrow {
+            font-size: 24px;
+            animation: slideRight 2s infinite;
+        }
+
+        @keyframes slideRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .sidebar-tips {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .sidebar-tips li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .sidebar-tips li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-tips li::before {
+            content: '✓';
+            color: #3a5a7a;
+            font-weight: bold;
+        }
+
+        /* 法律文书生成 */
+        .documents-section {
+            margin-bottom: 30px;
+        }
+
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .doc-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+            border-top: 4px solid #3a5a7a;
+        }
+
+        .doc-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .doc-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 16px;
+        }
+
+        .doc-card h4 {
+            font-size: 18px;
+            color: #1e3a5f;
+            margin-bottom: 8px;
+        }
+
+        .doc-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 咨询技巧 */
+        .tips-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #3a5a7a;
+        }
+
+        .tip-item h4 {
+            color: #3a5a7a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tip-item p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 底部按钮 */
+        .footer-buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .footer-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e3a5f;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .footer-button-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            box-shadow: 0 4px 16px rgba(58, 90, 122, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(58, 90, 122, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #3a5a7a;
+            border: 2px solid #3a5a7a;
+        }
+
+        .btn-secondary:hover {
+            background: #3a5a7a;
+            color: white;
+        }
+
+        /* 动态演示区域 */
+        .demo-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .demo-header h4 {
+            color: #1e3a5f;
+            margin: 0;
+        }
+
+        .demo-play-btn {
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .demo-play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(58, 90, 122, 0.4);
+        }
+
+        .demo-play-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .demo-chat-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .demo-chat-bubble {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .demo-chat-bubble.user {
+            background: #3a5a7a;
+            color: white;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .demo-chat-bubble.assistant {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #666;
+            background: white;
+            margin-top: 40px;
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .welcome-card h2 {
+                font-size: 24px;
+            }
+
+            .welcome-card p {
+                font-size: 16px;
+            }
+
+            .step-card {
+                padding: 24px;
+            }
+
+            .footer-buttons {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .sidebar-demo-inner {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sidebar-arrow {
+                transform: rotate(90deg);
+            }
+
+            @keyframes slideRight {
+                0%, 100% { transform: rotate(90deg) translateX(0); }
+                50% { transform: rotate(90deg) translateX(10px); }
+            }
+        }
+
+        /* 滚动样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3a5a7a;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e3a5f;
+        }
+
+        /* 常见劳动纠纷科普区 */
+        .disputes-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .disputes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        /* 可展开的纠纷卡片 */
+        .dispute-card {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            overflow: hidden;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .dispute-card:hover {
+            border-color: #3a5a7a;
+            box-shadow: 0 4px 16px rgba(58, 90, 122, 0.15);
+        }
+
+        .dispute-card.active {
+            border-color: #3a5a7a;
+            box-shadow: 0 6px 20px rgba(58, 90, 122, 0.2);
+        }
+
+        .dispute-card-header {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 14px;
+            transition: background 0.3s;
+        }
+
+        .dispute-card-header:hover {
+            background: #f8f9fa;
+        }
+
+        .dispute-card.active .dispute-card-header {
+            background: #f0f4f8;
+        }
+
+        .dispute-icon {
+            font-size: 32px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .dispute-card-info {
+            flex: 1;
+        }
+
+        .dispute-card h4 {
+            font-size: 17px;
+            color: #1e3a5f;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dispute-card .case-desc {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .dispute-card-arrow {
+            color: #3a5a7a;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .dispute-card.active .dispute-card-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dispute-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #f8f9fc;
+        }
+
+        .dispute-card.active .dispute-card-content {
+            max-height: 800px;
+        }
+
+        .dispute-card-body {
+            padding: 20px;
+        }
+
+        .dispute-section {
+            margin-bottom: 18px;
+        }
+
+        .dispute-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .dispute-section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #3a5a7a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dispute-section-title::before {
+            content: '';
+            width: 4px;
+            height: 14px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 2px;
+        }
+
+        .dispute-section p {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .dispute-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dispute-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: #555;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .dispute-step-num {
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .dispute-question {
+            background: white;
+            border-left: 4px solid #3a5a7a;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+            margin: 8px 0 0 0;
+        }
+
+        .dispute-question::before {
+            content: '"';
+            font-size: 18px;
+            color: #3a5a7a;
+            font-weight: bold;
+        }
+
+        .dispute-question::after {
+            content: '"';
+            font-size: 18px;
+            color: #3a5a7a;
+            font-weight: bold;
+        }
+
+        .dispute-evidence {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .dispute-evidence-tag {
+            background: white;
+            border: 1px solid #3a5a7a;
+            color: #3a5a7a;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        /* 提问关键词速查表 */
+        .keywords-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        /* 可展开的关键词卡片 */
+        .keywords-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .keyword-card {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .keyword-card:hover {
+            border-color: #3a5a7a;
+        }
+
+        .keyword-card.active {
+            border-color: #3a5a7a;
+            box-shadow: 0 4px 16px rgba(58, 90, 122, 0.15);
+        }
+
+        .keyword-card-header {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+            gap: 12px;
+        }
+
+        .keyword-card-header:hover {
+            background: #f8f9fa;
+        }
+
+        .keyword-card-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .keyword-card-title {
+            flex: 1;
+            font-weight: bold;
+            color: #1e3a5f;
+            font-size: 16px;
+        }
+
+        .keyword-card-arrow {
+            color: #3a5a7a;
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+
+        .keyword-card.active .keyword-card-arrow {
+            transform: rotate(180deg);
+        }
+
+        .keyword-card-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            background: #f8f9fa;
+        }
+
+        .keyword-card.active .keyword-card-content {
+            max-height: 600px;
+        }
+
+        .keyword-card-body {
+            padding: 20px;
+        }
+
+        .keyword-section {
+            margin-bottom: 16px;
+        }
+
+        .keyword-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .keyword-section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #3a5a7a;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .keyword-section-title::before {
+            content: '';
+            width: 4px;
+            height: 14px;
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 2px;
+        }
+
+        .keyword-section p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .keyword-checklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .keyword-checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            color: #555;
+            font-size: 13px;
+            padding: 6px 0;
+            line-height: 1.5;
+        }
+
+        .keyword-checklist li::before {
+            content: '☐';
+            color: #3a5a7a;
+            flex-shrink: 0;
+        }
+
+        .keyword-example {
+            background: white;
+            border-left: 4px solid #3a5a7a;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .keyword-example::before {
+            content: '"';
+            font-size: 20px;
+            color: #3a5a7a;
+        }
+
+        .keyword-example::after {
+            content: '"';
+            font-size: 20px;
+            color: #3a5a7a;
+        }
+
+        /* 法律文书生成信息清单 */
+        .checklist-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .checklist-section.highlight {
+            animation: highlightPulse 2s ease-in-out;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(58, 90, 122, 0.4);
+                transform: scale(1.02);
+            }
+        }
+
+        .checklist-container {
+            margin-top: 24px;
+        }
+
+        .checklist-progress {
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .checklist-progress .progress-number {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 4px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .checklist-item:hover {
+            border-color: #3a5a7a;
+            transform: translateX(4px);
+        }
+
+        .checklist-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #3a5a7a;
+            border-radius: 4px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            background: white;
+        }
+
+        .checklist-checkbox:hover {
+            border-color: #1e3a5f;
+            box-shadow: 0 2px 8px rgba(58, 90, 122, 0.2);
+        }
+
+        .checklist-checkbox.checked {
+            background: #3a5a7a;
+            border-color: #3a5a7a;
+            color: white;
+        }
+
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .checklist-content {
+            flex: 1;
+        }
+
+        .checklist-content h4 {
+            color: #1e3a5f;
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .checklist-content p {
+            color: #666;
+            font-size: 13px;
+            margin: 0;
+        }
+
+        /* 快速上手指南 - 精简版 */
+        .quick-start-section {
+            background: linear-gradient(135deg, #3a5a7a 0%, #1e3a5f 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+
+        .quick-start-section .section-title {
+            color: white;
+            justify-content: center;
+        }
+
+        .quick-start-section .section-title::before {
+            background: white;
+        }
+
+        .quick-steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .quick-step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .quick-step-number {
+            width: 60px;
+            height: 60px;
+            background: white;
+            color: #3a5a7a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .quick-step h4 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .quick-step p {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* 响应式更新 */
+        @media (max-width: 768px) {
+            .disputes-grid,
+            .keywords-container {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .quick-step {
+                width: 100%;
+            }
+
+            .checklist-item {
+                padding: 16px;
+            }
+
+            .quick-start-section {
+                padding: 30px 20px;
+            }
+
+            .quick-nav-buttons {
+                gap: 8px;
+            }
+
+            .quick-nav-btn {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .footer-button-row {
+                flex-direction: column;
+                padding: 0 20px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header h1 {
+                font-size: 18px;
+            }
+
+            .quick-nav {
+                top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="header">
+        <div class="header-content">
+            <div style="display: flex; align-items: center;">
+                <span class="header-icon">⚖️</span>
+                <h1>劳动者权益法律咨询助手</h1>
+            </div>
+            <span style="opacity: 0.9; font-size: 14px;">新手指南</span>
+        </div>
+    </div>
+
+    <!-- 快速跳转导航栏 -->
+    <div class="quick-nav">
+        <div class="quick-nav-container">
+            <div class="quick-nav-buttons">
+                <a href="#disputes" class="quick-nav-btn" onclick="smoothScroll(event, 'disputes')">常见纠纷</a>
+                <a href="#keywords" class="quick-nav-btn" onclick="smoothScroll(event, 'keywords')">提问关键词</a>
+                <a href="#checklist" class="quick-nav-btn" onclick="smoothScroll(event, 'checklist')">准备清单</a>
+                <a href="#quickstart" class="quick-nav-btn" onclick="smoothScroll(event, 'quickstart')">快速上手</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <div class="container">
+        <!-- 欢迎卡片 -->
+        <div class="welcome-card">
+            <h2>欢迎使用劳动者权益法律咨询助手</h2>
+            <p>这是一个专业的劳动法律咨询智能助手，帮助您解决各类劳动纠纷问题，包括工资拖欠、未签合同被辞退、加班费纠纷、试用期纠纷等。通过智能对话和法律文书生成功能，为您提供及时、专业的法律支持。</p>
+            <div class="welcome-features">
+                <span class="feature-tag">💼 工资拖欠</span>
+                <span class="feature-tag">📝 未签合同</span>
+                <span class="feature-tag">💰 加班费</span>
+                <span class="feature-tag">🔍 试用期纠纷</span>
+                <span class="feature-tag">⚖️ 法律文书</span>
+            </div>
+        </div>
+
+        <!-- 分步骤教学 -->
+        <div class="steps-section">
+            <h2 class="section-title">快速上手指南</h2>
+            <div class="steps-container">
+                <!-- 第一步 -->
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>如何开始对话</h3>
+                    <p>在对话框中直接描述您遇到的劳动纠纷情况，尽量详细地说明问题，包括时间、地点、涉及金额等信息。</p>
+                    <div class="example-box">
+                        <h4>💡 示例问题：</h4>
+                        <p>"我在公司工作了3个月，一直没有签订劳动合同，现在公司突然要辞退我，请问我应该怎么办？"</p>
+                    </div>
+                    <div class="demo-section">
+                        <div class="demo-header">
+                            <h4>💬 动态演示</h4>
+                            <button class="demo-play-btn" onclick="playDemo()">
+                                <span>▶</span> 播放演示
+                            </button>
+                        </div>
+                        <div class="demo-chat-container" id="demoChatContainer">
+                            <!-- 动态聊天气泡将在这里生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 第二步 -->
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>使用语音输入和拍照功能</h3>
+                    <p>为提升咨询效率，您可以使用语音输入快速描述问题，或通过拍照/相册功能上传相关证据材料。</p>
+                    <div class="feature-icons">
+                        <div class="feature-icon-item">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+                                <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+                            </svg>
+                            <span>语音输入</span>
+                        </div>
+                        <div class="feature-icon-item">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+                            </svg>
+                            <span>拍照上传</span>
+                        </div>
+                        <div class="feature-icon-item">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                            </svg>
+                            <span>相册选择</span>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <h4>📸 可上传的证据类型：</h4>
+                        <p>劳动合同、工资条、银行流水、考勤记录、工作群聊天记录、辞退通知、加班记录等</p>
+                    </div>
+                </div>
+
+                <!-- 第三步 -->
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>管理历史对话</h3>
+                    <p>左侧侧边栏可以帮助您管理所有历史咨询记录，方便查看、回溯或删除不需要的对话。</p>
+                    <div class="feature-icons">
+                        <div class="feature-icon-item">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="#3a5a7a">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            <span>新建对话</span>
+                        </div>
+                        <div class="feature-icon-item">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="#3a5a7a">
+                                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+                            </svg>
+                            <span>删除记录</span>
+                        </div>
+                        <div class="feature-icon-item">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="#3a5a7a">
+                                <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                            </svg>
+                            <span>清空历史</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 快速上手指南 - 精简版 -->
+        <div class="quick-start-section">
+            <h2 class="section-title">快速上手指南</h2>
+            <p style="font-size: 16px; opacity: 0.95; margin-bottom: 30px;">三步完成您的首次咨询</p>
+            <div class="quick-steps">
+                <div class="quick-step">
+                    <div class="quick-step-number">1</div>
+                    <h4>描述情况</h4>
+                    <p>在对话框中详细描述您遇到的劳动纠纷，包括时间、地点、涉及金额等关键信息</p>
+                </div>
+                <div class="quick-step">
+                    <div class="quick-step-number">2</div>
+                    <h4>上传证据</h4>
+                    <p>使用拍照或相册功能上传劳动合同、工资条、聊天记录等证据材料</p>
+                </div>
+                <div class="quick-step">
+                    <div class="quick-step-number">3</div>
+                    <h4>获得建议+文书</h4>
+                    <p>获得专业法律建议，并可生成民事起诉状、仲裁申请书等法律文书</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 常见劳动纠纷科普区 -->
+        <div class="disputes-section" id="disputes">
+            <h2 class="section-title">常见劳动纠纷科普</h2>
+            <p style="color: #666; margin-bottom: 20px;">点击任意卡片查看详细法律知识和应对指南</p>
+            <div class="disputes-grid">
+                <!-- 工资拖欠 -->
+                <div class="dispute-card" onclick="toggleDisputeCard(this)">
+                    <div class="dispute-card-header">
+                        <div class="dispute-icon">💰</div>
+                        <div class="dispute-card-info">
+                            <h4>工资拖欠</h4>
+                            <p class="case-desc">公司长期不发工资或克扣工资，包括兼职和全职员工</p>
+                        </div>
+                        <div class="dispute-card-arrow">▼</div>
+                    </div>
+                    <div class="dispute-card-content">
+                        <div class="dispute-card-body">
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">纠纷简介</div>
+                                <p>用人单位无正当理由超过规定时间未支付劳动报酬。</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">法律依据</div>
+                                <p>《劳动合同法》第85条、《劳动法》第50条 - 按约定支付劳动报酬</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">应对步骤</div>
+                                <div class="dispute-steps">
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">①</span>
+                                        <span>与用人单位协商，保留沟通记录</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">②</span>
+                                        <span>向当地劳动监察大队投诉举报</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">③</span>
+                                        <span>申请劳动仲裁（免费）</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">④</span>
+                                        <span>向法院提起诉讼</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">推荐提问</div>
+                                <p class="dispute-question">我在[公司名称]做[岗位]，从X月X日到X月X日工作了X天，约定工资X元/月，老板以[理由]为由拒绝支付，我该怎么办？</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">需要准备的证据</div>
+                                <div class="dispute-evidence">
+                                    <span class="dispute-evidence-tag">工资条</span>
+                                    <span class="dispute-evidence-tag">考勤记录</span>
+                                    <span class="dispute-evidence-tag">工作群聊天记录</span>
+                                    <span class="dispute-evidence-tag">银行流水</span>
+                                    <span class="dispute-evidence-tag">录音录像</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 未签合同被辞退 -->
+                <div class="dispute-card" onclick="toggleDisputeCard(this)">
+                    <div class="dispute-card-header">
+                        <div class="dispute-icon">📝</div>
+                        <div class="dispute-card-info">
+                            <h4>未签合同被辞退</h4>
+                            <p class="case-desc">入职后公司一直未签劳动合同，现在被无故辞退</p>
+                        </div>
+                        <div class="dispute-card-arrow">▼</div>
+                    </div>
+                    <div class="dispute-card-content">
+                        <div class="dispute-card-body">
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">纠纷简介</div>
+                                <p>入职未签订书面劳动合同，被用人单位无故辞退。</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">法律依据</div>
+                                <p>《劳动合同法》第10条（建立劳动关系应签合同）、第82条（双倍工资）、第87条（违法辞退赔偿2N）</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">应对步骤</div>
+                                <div class="dispute-steps">
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">①</span>
+                                        <span>收集证明劳动关系的证据</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">②</span>
+                                        <span>要求支付双倍工资差额</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">③</span>
+                                        <span>要求违法辞退赔偿金（2N）</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">④</span>
+                                        <span>申请劳动仲裁</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">推荐提问</div>
+                                <p class="dispute-question">我于X年X月入职[公司名称]，未签劳动合同，工作X个月后被口头辞退，没有书面通知，请问我可以主张哪些赔偿？</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">需要准备的证据</div>
+                                <div class="dispute-evidence">
+                                    <span class="dispute-evidence-tag">工牌</span>
+                                    <span class="dispute-evidence-tag">工作群记录</span>
+                                    <span class="dispute-evidence-tag">工资转账记录</span>
+                                    <span class="dispute-evidence-tag">同事证言</span>
+                                    <span class="dispute-evidence-tag">打卡记录</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 加班费争议 -->
+                <div class="dispute-card" onclick="toggleDisputeCard(this)">
+                    <div class="dispute-card-header">
+                        <div class="dispute-icon">⏰</div>
+                        <div class="dispute-card-info">
+                            <h4>加班费争议</h4>
+                            <p class="case-desc">经常加班但公司不支付加班费或以调休抵扣</p>
+                        </div>
+                        <div class="dispute-card-arrow">▼</div>
+                    </div>
+                    <div class="dispute-card-content">
+                        <div class="dispute-card-body">
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">纠纷简介</div>
+                                <p>用人单位安排加班但不支付或不足额支付加班费。</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">法律依据</div>
+                                <p>《劳动法》第44条：平时加班1.5倍、休息日2倍、法定节假日3倍工资</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">应对步骤</div>
+                                <div class="dispute-steps">
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">①</span>
+                                        <span>收集加班记录（打卡截图、工作群通知）</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">②</span>
+                                        <span>计算应得加班费</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">③</span>
+                                        <span>向劳动监察投诉或申请仲裁</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">推荐提问</div>
+                                <p class="dispute-question">我在[公司名称]工作，公司经常要求加班，但从未支付加班费。我有打卡记录和加班通知截图，请问如何追讨加班费？</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">需要准备的证据</div>
+                                <div class="dispute-evidence">
+                                    <span class="dispute-evidence-tag">打卡记录</span>
+                                    <span class="dispute-evidence-tag">加班通知</span>
+                                    <span class="dispute-evidence-tag">工作群聊天记录</span>
+                                    <span class="dispute-evidence-tag">工资条</span>
+                                    <span class="dispute-evidence-tag">考勤表</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 试用期纠纷 -->
+                <div class="dispute-card" onclick="toggleDisputeCard(this)">
+                    <div class="dispute-card-header">
+                        <div class="dispute-icon">⚠️</div>
+                        <div class="dispute-card-info">
+                            <h4>试用期陷阱</h4>
+                            <p class="case-desc">试用期随意辞退、延长试用期或试用期不发工资</p>
+                        </div>
+                        <div class="dispute-card-arrow">▼</div>
+                    </div>
+                    <div class="dispute-card-content">
+                        <div class="dispute-card-body">
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">纠纷简介</div>
+                                <p>试用期设置不合法、随意辞退、不支付工资等问题。</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">法律依据</div>
+                                <p>《劳动合同法》第19条（试用期最长6个月）、第20条（试用期工资不低于转正80%）、第21条（试用期不能随意解除）</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">应对步骤</div>
+                                <div class="dispute-steps">
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">①</span>
+                                        <span>确认试用期是否合法</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">②</span>
+                                        <span>收集工作记录和辞退通知</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">③</span>
+                                        <span>要求赔偿金</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">推荐提问</div>
+                                <p class="dispute-question">我入职时签了合同，试用期3个月，工作2个月后公司以"试用期不合格"为由辞退我，但没说明具体理由，请问合法吗？</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">需要准备的证据</div>
+                                <div class="dispute-evidence">
+                                    <span class="dispute-evidence-tag">劳动合同</span>
+                                    <span class="dispute-evidence-tag">辞退通知</span>
+                                    <span class="dispute-evidence-tag">工作成果记录</span>
+                                    <span class="dispute-evidence-tag">沟通记录</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 社保未缴纳 -->
+                <div class="dispute-card" onclick="toggleDisputeCard(this)">
+                    <div class="dispute-card-header">
+                        <div class="dispute-icon">🏥</div>
+                        <div class="dispute-card-info">
+                            <h4>社保未缴纳</h4>
+                            <p class="case-desc">公司未依法缴纳社保或只缴纳部分险种</p>
+                        </div>
+                        <div class="dispute-card-arrow">▼</div>
+                    </div>
+                    <div class="dispute-card-content">
+                        <div class="dispute-card-body">
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">纠纷简介</div>
+                                <p>用人单位不依法为员工缴纳社会保险（五险一金）。</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">法律依据</div>
+                                <p>《社会保险法》第58条、第60条、《劳动合同法》第38条（未缴社保可解除合同并要补偿）</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">应对步骤</div>
+                                <div class="dispute-steps">
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">①</span>
+                                        <span>向社保局投诉举报</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">②</span>
+                                        <span>要求补缴社保</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">③</span>
+                                        <span>以未缴社保为由辞职并要求经济补偿</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">推荐提问</div>
+                                <p class="dispute-question">我在[公司名称]工作X年，公司从未给我缴纳社保，我该怎么办？可以要求赔偿吗？</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">需要准备的证据</div>
+                                <div class="dispute-evidence">
+                                    <span class="dispute-evidence-tag">劳动合同</span>
+                                    <span class="dispute-evidence-tag">工资条</span>
+                                    <span class="dispute-evidence-tag">银行流水</span>
+                                    <span class="dispute-evidence-tag">工作证明</span>
+                                    <span class="dispute-evidence-tag">社保局查询记录</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 工伤赔偿 -->
+                <div class="dispute-card" onclick="toggleDisputeCard(this)">
+                    <div class="dispute-card-header">
+                        <div class="dispute-icon">🚑</div>
+                        <div class="dispute-card-info">
+                            <h4>工伤不赔偿</h4>
+                            <p class="case-desc">工作中受伤，公司不认定工伤或拒绝赔偿</p>
+                        </div>
+                        <div class="dispute-card-arrow">▼</div>
+                    </div>
+                    <div class="dispute-card-content">
+                        <div class="dispute-card-body">
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">纠纷简介</div>
+                                <p>工作中发生事故受伤，用人单位不认定工伤或不赔偿。</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">法律依据</div>
+                                <p>《工伤保险条例》第14条（工伤认定）、第17条（单位不申请可自行申请）</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">应对步骤</div>
+                                <div class="dispute-steps">
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">①</span>
+                                        <span>及时就医并保留病历</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">②</span>
+                                        <span>申请工伤认定（单位不申请可自行申请）</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">③</span>
+                                        <span>劳动能力鉴定</span>
+                                    </div>
+                                    <div class="dispute-step">
+                                        <span class="dispute-step-num">④</span>
+                                        <span>要求工伤待遇赔偿</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">推荐提问</div>
+                                <p class="dispute-question">我在工作中[描述受伤经过]，公司说不是工伤不给赔偿，请问如何认定工伤？能获得哪些赔偿？</p>
+                            </div>
+                            <div class="dispute-section">
+                                <div class="dispute-section-title">需要准备的证据</div>
+                                <div class="dispute-evidence">
+                                    <span class="dispute-evidence-tag">劳动合同</span>
+                                    <span class="dispute-evidence-tag">病历和诊断证明</span>
+                                    <span class="dispute-evidence-tag">事故现场照片</span>
+                                    <span class="dispute-evidence-tag">目击证人</span>
+                                    <span class="dispute-evidence-tag">工伤认定申请表</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 提问关键词速查表 -->
+        <div class="keywords-section" id="keywords">
+            <h2 class="section-title">提问关键词速查表</h2>
+            <p style="color: #666; margin-bottom: 20px;">点击任意关键词查看详细说明和提问示例</p>
+            <div class="keywords-container">
+                <!-- 工作性质 -->
+                <div class="keyword-card" onclick="toggleKeywordCard(this)">
+                    <div class="keyword-card-header">
+                        <div class="keyword-card-icon">🏢</div>
+                        <div class="keyword-card-title">工作性质</div>
+                        <div class="keyword-card-arrow">▼</div>
+                    </div>
+                    <div class="keyword-card-content">
+                        <div class="keyword-card-body">
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">这个关键词是什么意思？</div>
+                                <p>说明你的用工形式，不同性质适用不同法律条款。</p>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">用户应该提供哪些具体信息？</div>
+                                <ul class="keyword-checklist">
+                                    <li>全职 / 兼职 / 实习 / 劳务派遣 / 临时工</li>
+                                    <li>每天/每周工作多长时间</li>
+                                    <li>是否有固定的上下班时间</li>
+                                </ul>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">完整提问示例</div>
+                                <div class="keyword-example">我是大学生，在学校旁边的奶茶店做兼职，每天工作4小时，没有签合同，干了15天老板不给工资。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 合同状态 -->
+                <div class="keyword-card" onclick="toggleKeywordCard(this)">
+                    <div class="keyword-card-header">
+                        <div class="keyword-card-icon">📋</div>
+                        <div class="keyword-card-title">合同状态</div>
+                        <div class="keyword-card-arrow">▼</div>
+                    </div>
+                    <div class="keyword-card-content">
+                        <div class="keyword-card-body">
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">这个关键词是什么意思？</div>
+                                <p>是否签了合同，签的是什么类型的合同。</p>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">用户应该提供哪些具体信息？</div>
+                                <ul class="keyword-checklist">
+                                    <li>有劳动合同 / 没有合同 / 签了但没给我 / 签的是劳务协议</li>
+                                    <li>合同是否在有效期内</li>
+                                    <li>是否拍照或保留了合同副本</li>
+                                </ul>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">完整提问示例</div>
+                                <div class="keyword-example">我入职时签了劳动合同，但公司一直没给我一份，现在工作3个月突然被辞退，没有赔偿。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 纠纷类型 -->
+                <div class="keyword-card" onclick="toggleKeywordCard(this)">
+                    <div class="keyword-card-header">
+                        <div class="keyword-card-icon">⚖️</div>
+                        <div class="keyword-card-title">纠纷类型</div>
+                        <div class="keyword-card-arrow">▼</div>
+                    </div>
+                    <div class="keyword-card-content">
+                        <div class="keyword-card-body">
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">这个关键词是什么意思？</div>
+                                <p>你遇到了什么问题，属于哪种劳动纠纷。</p>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">用户应该提供哪些具体信息？</div>
+                                <ul class="keyword-checklist">
+                                    <li>拖欠工资 / 违法辞退 / 加班费 / 试用期 / 社保 / 工伤</li>
+                                    <li>具体发生了什么（时间、人物、经过）</li>
+                                </ul>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">完整提问示例</div>
+                                <div class="keyword-example">我加班了20个小时，公司说不给加班费，说我们是责任制，但我只是普通员工。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 时间信息 -->
+                <div class="keyword-card" onclick="toggleKeywordCard(this)">
+                    <div class="keyword-card-header">
+                        <div class="keyword-card-icon">⏰</div>
+                        <div class="keyword-card-title">时间信息</div>
+                        <div class="keyword-card-arrow">▼</div>
+                    </div>
+                    <div class="keyword-card-content">
+                        <div class="keyword-card-body">
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">这个关键词是什么意思？</div>
+                                <p>纠纷发生的时间线，影响维权时效。</p>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">用户应该提供哪些具体信息？</div>
+                                <ul class="keyword-checklist">
+                                    <li>入职时间（年月）</li>
+                                    <li>离职时间（如有）</li>
+                                    <li>纠纷发生的时间点</li>
+                                    <li>是否还在职</li>
+                                </ul>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">完整提问示例</div>
+                                <div class="keyword-example">我2025年3月1日入职，2026年1月10日被口头辞退，公司没给书面通知。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 金额信息 -->
+                <div class="keyword-card" onclick="toggleKeywordCard(this)">
+                    <div class="keyword-card-header">
+                        <div class="keyword-card-icon">💵</div>
+                        <div class="keyword-card-title">金额信息</div>
+                        <div class="keyword-card-arrow">▼</div>
+                    </div>
+                    <div class="keyword-card-content">
+                        <div class="keyword-card-body">
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">这个关键词是什么意思？</div>
+                                <p>涉及多少钱，影响维权策略和赔偿计算。</p>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">用户应该提供哪些具体信息？</div>
+                                <ul class="keyword-checklist">
+                                    <li>月工资/时薪是多少</li>
+                                    <li>被拖欠的金额</li>
+                                    <li>加班时长（小时数）</li>
+                                    <li>要求的赔偿金额</li>
+                                </ul>
+                            </div>
+                            <div class="keyword-section">
+                                <div class="keyword-section-title">完整提问示例</div>
+                                <div class="keyword-example">我的月薪是5000元，公司欠了我3个月工资共15000元，还有2000元的加班费没给。</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 法律文书生成信息清单 -->
+        <div class="checklist-section" id="checklist">
+            <h2 class="section-title">法律文书生成信息清单</h2>
+            <p style="color: #666; margin-bottom: 20px;">生成法律文书前，请准备好以下信息（点击复选框标记已准备）</p>
+            <div class="checklist-progress" id="checklistProgress">
+                您已准备好 <span class="progress-number" id="progressNumber">0</span>/7 项信息
+            </div>
+            <div class="checklist-container">
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>你的姓名/联系方式</h4>
+                        <p>示例：张三，电话138****1234，邮箱zhang@email.com</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>公司/老板全称</h4>
+                        <p>示例：某某科技有限公司，统一社会信用代码：91****1234</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>入职/离职时间</h4>
+                        <p>示例：2023年6月1日入职，2023年12月15日离职</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>月工资/欠薪金额</h4>
+                        <p>示例：月工资8000元，共拖欠工资24000元</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>是否有合同</h4>
+                        <p>示例：未签订劳动合同 / 已签订，可上传合同照片</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>是否有证据</h4>
+                        <p>示例：有工作群聊天记录、银行工资流水、考勤打卡记录</p>
+                    </div>
+                </div>
+                <div class="checklist-item">
+                    <div class="checklist-checkbox" onclick="toggleCheck(this)"></div>
+                    <div class="checklist-content">
+                        <h4>事情经过简述</h4>
+                        <p>示例：入职后公司未签合同，工作期间经常加班但不给加班费，12月无故被辞退</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 侧边栏操作说明 -->
+        <div class="sidebar-section">
+            <h2 class="section-title">侧边栏操作指南</h2>
+            <p>左侧历史对话栏提供灵活的显示控制功能，让您更好地管理屏幕空间。</p>
+            <div class="sidebar-demo">
+                <div class="sidebar-demo-inner">
+                    <div class="sidebar-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+                            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                        </svg>
+                        <span>点击「/」</span>
+                    </div>
+                    <div class="sidebar-arrow">→</div>
+                    <div class="sidebar-icon">
+                        <svg viewBox="0 0 24 24" width="32" height="32" fill="white">
+                            <path d="M4 15h16v-2H4v2zm0 4h16v-2H4v2zm0-8h16V9H4v2zm0-6v2h16V5H4z"/>
+                        </svg>
+                        <span>折叠/展开</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="sidebar-tips">
+                <li><strong>点击「/」按钮：</strong>快速折叠或展开侧边栏</li>
+                <li><strong>拖拽边缘：</strong>按住侧边栏边缘拖动可调整宽度</li>
+                <li><strong>悬停自动展开：</strong>折叠状态下鼠标悬停自动展开，移开后自动折叠</li>
+            </ul>
+        </div>
+
+        <!-- 法律文书生成 -->
+        <div class="documents-section">
+            <h2 class="section-title">法律文书生成功能</h2>
+            <p>系统内置智能文书生成功能，根据您的咨询情况自动生成专业的法律文书草稿。</p>
+            <div class="docs-grid">
+                <div class="doc-card">
+                    <div class="doc-icon">📄</div>
+                    <h4>民事起诉状草稿</h4>
+                    <p>适用于需要向人民法院提起诉讼的案件，自动生成规范的民事起诉状框架。</p>
+                </div>
+                <div class="doc-card">
+                    <div class="doc-icon">⚖️</div>
+                    <h4>劳动仲裁申请书</h4>
+                    <p>专为劳动争议设计，生成符合劳动仲裁委员会要求的申请书格式。</p>
+                </div>
+                <div class="doc-card">
+                    <div class="doc-icon">📨</div>
+                    <h4>催款函</h4>
+                    <p>用于向用人单位催讨拖欠工资，正式告知并保留法律证据。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 咨询技巧 -->
+        <div class="tips-section">
+            <h2 class="section-title">咨询技巧提示</h2>
+            <p>提供以下关键信息可以获得更准确、更有针对性的法律建议：</p>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <h4>🏢 工作性质</h4>
+                    <p>说明您的职位、工作内容、入职时间等基本信息</p>
+                </div>
+                <div class="tip-item">
+                    <h4>📋 合同情况</h4>
+                    <p>是否签订劳动合同、合同期限、合同条款等</p>
+                </div>
+                <div class="tip-item">
+                    <h4>👔 公司信息</h4>
+                    <p>公司名称、注册地址、所属行业等</p>
+                </div>
+                <div class="tip-item">
+                    <h4>💰 薪资情况</h4>
+                    <p>工资标准、发放方式、是否足额发放等</p>
+                </div>
+                <div class="tip-item">
+                    <h4>⏰ 时间节点</h4>
+                    <p>纠纷发生的时间、持续时长、重要事件的时间顺序</p>
+                </div>
+                <div class="tip-item">
+                    <h4>📁 证据材料</h4>
+                    <p>已收集的证据类型，如聊天记录、邮件、录音等</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="footer-buttons">
+            <div class="footer-title">您准备好开始咨询了吗？</div>
+            <div class="footer-button-row">
+                <button class="btn btn-secondary" onclick="scrollToChecklist()">
+                    📋 我先准备材料
+                </button>
+                <a href="index.html" class="btn btn-primary">
+                    ✅ 开始咨询
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <div class="footer">
+        <p>© 2024 劳动者权益法律咨询助手 | 智能法律服务，守护您的合法权益</p>
+    </div>
+
+    <script>
+        // 简单的页面交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有卡片添加淡入动画
+            const cards = document.querySelectorAll('.step-card, .doc-card, .tip-item, .dispute-card, .keyword-item, .quick-step');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+
+            // 清单项逐个显示
+            const checklistItems = document.querySelectorAll('.checklist-item');
+            checklistItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                }, 300 + (index * 100));
+            });
+
+            // 按钮点击反馈
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // 初始化进度统计
+            updateProgress();
+
+            // 对话气泡逐个显示（旧的静态版本）
+            const chatBubbles = document.querySelectorAll('.chat-bubble');
+            chatBubbles.forEach((bubble, index) => {
+                bubble.style.opacity = '0';
+                setTimeout(() => {
+                    bubble.style.opacity = '1';
+                }, 300 + (index * 500));
+            });
+
+            // 纠纷卡片点击效果
+            const disputeCards = document.querySelectorAll('.dispute-card');
+            disputeCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const keyword = this.querySelector('.keyword-tag').textContent;
+                    alert('已为您准备关键词：' + keyword);
+                });
+            });
+        });
+
+        // 平滑滚动到锚点
+        function smoothScroll(event, targetId) {
+            event.preventDefault();
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                const targetPosition = targetElement.offsetTop - 150;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // 复选框切换功能
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+            updateProgress();
+        }
+
+        // 更新进度统计
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('.checklist-checkbox');
+            const checked = document.querySelectorAll('.checklist-checkbox.checked').length;
+            const progressNumber = document.getElementById('progressNumber');
+            if (progressNumber) {
+                progressNumber.textContent = checked;
+            }
+        }
+
+        // 播放演示
+        let isPlaying = false;
+        function playDemo() {
+            if (isPlaying) return;
+            isPlaying = true;
+
+            const container = document.getElementById('demoChatContainer');
+            container.innerHTML = '';
+
+            const demoMessages = [
+                {
+                    type: 'user',
+                    text: '我在一家餐厅做兼职，老板已经两个月没发工资了，一共拖欠我3600元，我该怎么办？'
+                },
+                {
+                    type: 'assistant',
+                    text: '您好！遇到兼职被拖欠工资的情况，您可以采取以下措施：\n\n1. 收集证据：保存好工作记录、考勤证明、工资条、聊天记录等\n2. 与老板协商：先友好沟通，要求支付拖欠工资\n3. 投诉举报：可向当地劳动监察大队投诉举报\n4. 劳动仲裁：如果协商无果，可以申请劳动仲裁\n5. 法律诉讼：最终可以向法院提起诉讼\n\n建议您先收集证据，然后我帮您生成一份催款函，正式要求老板支付工资。'
+                },
+                {
+                    type: 'assistant',
+                    text: '我已为您准备好相关法律文书模板，包括：\n• 催款函（用于正式催讨工资）\n• 劳动仲裁申请书（如需仲裁）\n\n您需要我帮您生成哪一份文书？'
+                }
+            ];
+
+            let currentIndex = 0;
+
+            function typeMessage(message, callback) {
+                const bubble = document.createElement('div');
+                bubble.className = 'demo-chat-bubble ' + message.type;
+                container.appendChild(bubble);
+
+                let i = 0;
+                const typeSpeed = 30;
+
+                function type() {
+                    if (i < message.text.length) {
+                        if (message.text.charAt(i) === '\n') {
+                            bubble.innerHTML += '<br>';
+                        } else {
+                            bubble.textContent += message.text.charAt(i);
+                        }
+                        i++;
+                        container.scrollTop = container.scrollHeight;
+                        setTimeout(type, typeSpeed);
+                    } else {
+                        setTimeout(callback, 500);
+                    }
+                }
+                type();
+            }
+
+            function nextMessage() {
+                if (currentIndex < demoMessages.length) {
+                    typeMessage(demoMessages[currentIndex], nextMessage);
+                    currentIndex++;
+                } else {
+                    isPlaying = false;
+                }
+            }
+
+            nextMessage();
+        }
+
+        // 滚动到清单区域并高亮
+        function scrollToChecklist() {
+            const checklistSection = document.getElementById('checklist');
+            if (checklistSection) {
+                const targetPosition = checklistSection.offsetTop - 150;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+
+                // 添加高亮效果
+                setTimeout(() => {
+                    checklistSection.classList.add('highlight');
+                    setTimeout(() => {
+                        checklistSection.classList.remove('highlight');
+                    }, 2000);
+                }, 500);
+            }
+        }
+
+        // 关键词卡片展开/收起
+        function toggleKeywordCard(card) {
+            // 检查当前卡片是否已经是展开状态
+            const isActive = card.classList.contains('active');
+
+            // 先收起所有其他卡片
+            document.querySelectorAll('.keyword-card').forEach(c => {
+                c.classList.remove('active');
+            });
+
+            // 如果之前不是展开状态，则展开当前卡片
+            if (!isActive) {
+                card.classList.add('active');
+            }
+        }
+
+        // 纠纷卡片展开/收起
+        function toggleDisputeCard(card) {
+            const isActive = card.classList.contains('active');
+
+            // 先收起所有其他卡片
+            document.querySelectorAll('.dispute-card').forEach(c => {
+                c.classList.remove('active');
+            });
+
+            // 如果之前不是展开状态，则展开当前卡片
+            if (!isActive) {
+                card.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
